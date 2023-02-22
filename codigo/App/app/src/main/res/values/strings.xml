@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Easycom</string>
+    <!--Bottom menu-->
+    <string name="bmenu_fav">Favoritos</string>
+    <string name="bmenu_hist">Historial</string>
+    <string name="bmenu_scan">Escanear</string>
+    <string name="bmenu_noti">Alertas</string>
+    <string name="bmenu_user">Usuario</string>
+    <!--Mensaje scanner-->
+    <string name="msg_scn">Escanea el codigo de barras o el QR</string>
+    <string name="msg_scn_error">El escaner ha fallado</string>
+
 </resources>

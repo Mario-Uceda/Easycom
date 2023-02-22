@@ -3,7 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/drawable/ic_round_favorite_24.xml" value="0.427" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/drawable/ic_round_person_24.xml" value="0.427" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/drawable/ic_round_qr_code_scanner_24.xml" value="0.427" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/activity_main.xml" value="0.3212962962962963" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_blank.xml" value="0.3828125" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_fav.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_hist.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_noti.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_scan.xml" value="0.33" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_user.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3165" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2765" />
       </map>
     </option>
