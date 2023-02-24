@@ -4,6 +4,7 @@
     package="com.MarioUceda.easycom">
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,8 @@
         android:hardwareAccelerated="true">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

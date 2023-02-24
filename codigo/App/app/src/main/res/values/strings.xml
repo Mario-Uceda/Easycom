@@ -9,5 +9,11 @@
     <!--Mensaje scanner-->
     <string name="msg_scn">Escanea el codigo de barras o el QR</string>
     <string name="msg_scn_error">El escaner ha fallado</string>
+    <!--Interfaz-->
+    <string name="boton_buscar">Buscar</string>
+    <string name="texto_codigo">Codigo: </string>
+    <string name="texto_url">Url: </string>
+    <string name="texto_nombre">Nombre: </string>
+    <string name="texto_descripcion">Descripcion: </string>
 
 </resources>
