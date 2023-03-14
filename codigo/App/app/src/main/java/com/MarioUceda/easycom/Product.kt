@@ -4,6 +4,7 @@ data class Product(
     var id: String,
     var name: String,
     var url: String,
+    var img: String,
     val description: String = "",
     val technicalSpecs: String = ""
 ) {

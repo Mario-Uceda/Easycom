@@ -118,11 +118,11 @@ class ScanFragment : Fragment() {
     //Funcion para obtener datos de un producto de Amazon
     fun productAmazon(url: String): String {
         try {
-            println("Holiwi")
             val doc = Jsoup.connect(url).get()
             println(url)
             val nombreProducto = doc.select("#productTitle").text()
-            println("UwU")
+            val img = doc.select("#imgTagWrapperId img").attr("src")
+            println(img)
             println(nombreProducto)
             return nombreProducto
         }catch (e: Exception){
