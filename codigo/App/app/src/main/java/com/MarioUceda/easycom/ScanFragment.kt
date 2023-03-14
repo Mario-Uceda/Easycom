@@ -18,7 +18,7 @@ class ScanFragment : Fragment() {
     private var _binding: FragmentScanBinding? = null
     private val binding get() = _binding!!
     private var producto = Product("","")
-
+    private var prodFragment = ProdFragment()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +26,7 @@ class ScanFragment : Fragment() {
         _binding = FragmentScanBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.scan.setOnClickListener { initScanner() }
@@ -46,22 +46,8 @@ class ScanFragment : Fragment() {
                 }/*'6972453163820'*/
                 println("1La url es: "+producto.url)
                 println("1El nombre del producto es: "+producto.name)
-                //binding.url.text= getString(R.string.texto_url)+ producto.url
-                //binding.productName.text= getString(R.string.texto_nombre)+ producto.name
             }
         }
-        /*binding.buscar.setOnClickListener {
-            obtenerProductoEnHilo(producto) { url, name ->
-                if (url != producto.url) {
-                    producto.url = url
-                    producto.name = name
-                    println("La url es: ${producto.url}")
-                    println("El nombre del producto es: ${producto.name}")
-                    //binding.idProducto.text = getString(R.string.texto_url) + producto.url
-                    //binding.idProducto.text = getString(R.string.texto_nombre) + producto.name
-                }
-            }
-        }*/
     }
 
     //Funcion para iniciar el escaner
@@ -130,6 +116,5 @@ class ScanFragment : Fragment() {
             return ""
         }
     }
-
 
 }
