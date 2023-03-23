@@ -9,7 +9,7 @@ import com.MarioUceda.easycom.databinding.FragmentProdBinding
 import com.bumptech.glide.Glide
 
 
-class ProdFragment : Fragment(R.layout.fragment_fav) {
+class ProdFragment : Fragment() {
     private var _binding: FragmentProdBinding? = null
     private val binding get() = _binding!!
 
@@ -21,10 +21,14 @@ class ProdFragment : Fragment(R.layout.fragment_fav) {
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val url =
-            "https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2020/11/analisis-ps5-computerhoy-2140439.jpg?tf=3840x"
-        Glide.with(this)
-            .load(url)
-            .into(binding.prodImg)
+        val producto = arguments?.getSerializable("producto") as Product
+        val precio = arguments?.getSerializable("precio") as Price
+        binding.titulo.text = producto.name
+        Glide.with(this).load(producto.img).into(binding.prodImg)
+        binding.descripcion.text = producto.description
+        binding.especificaciones.text = producto.technicalSpecs
+        binding.id.text = producto.id
+        binding.precio.text = precio.precio.toString()
     }
+
 }
