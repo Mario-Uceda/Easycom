@@ -14,6 +14,7 @@
     <string name="texto_codigo">Codigo: </string>
     <string name="texto_url">Url: </string>
     <string name="texto_nombre">Nombre: </string>
+    <string name="texto_precio">Precio: </string>
+    <string name="texto_especificaciones">Especificaciones: </string>
     <string name="texto_descripcion">Descripcion: </string>
-
 </resources>

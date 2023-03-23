@@ -74,7 +74,7 @@ class ScanFragment : Fragment() {
             if (result.contents != null) {
                 // Obtener el código de barras escaneado
                 producto.id = "${result.contents.toString()}"
-                binding.idProducto.text= getString(R.string.texto_codigo)+ producto.id
+                getAmazon()
             }
         }
     }
@@ -89,7 +89,7 @@ class ScanFragment : Fragment() {
             producto.description = lista[2]
             producto.technicalSpecs = lista[3]
             precio = Price("Amazon", producto.id , lista[4])
-
+            println(producto.toString())
         }
 
     }

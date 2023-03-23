@@ -31,13 +31,24 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:lineSpacingExtra="24sp"
+                android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/msg_precio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/texto_precio"
+                android:textAlignment="viewStart"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/precio"
@@ -53,31 +64,31 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@android:color/darker_gray" />
 
             <ImageView
                 android:id="@+id/prodImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:cropToPadding="true"
                 android:src="@mipmap/ic_launcher" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/id"
+                android:id="@+id/msg_descripcion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+                android:layout_height="wrap_content"
+                android:text="@string/texto_descripcion"
+                android:textAlignment="viewStart"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/descripcion"
@@ -87,7 +98,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/msg_especificaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/texto_especificaciones"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/especificaciones"
@@ -97,7 +117,28 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/msg_codigo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/texto_codigo"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/darker_gray" />
 
         </LinearLayout>
     </ScrollView>
