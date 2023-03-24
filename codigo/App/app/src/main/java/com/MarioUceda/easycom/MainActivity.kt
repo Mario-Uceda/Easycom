@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         var scanFragment = ScanFragment()
         var userFragment = UserFragment()
         var loginFragment = LoginFragment()
+        var productListFragment = ProductListFragment()
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {

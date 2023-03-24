@@ -1,26 +1,27 @@
 package com.MarioUceda.easycom
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.MarioUceda.easycom.databinding.FragmentHistBinding
+import com.MarioUceda.easycom.databinding.FragmentProductListBinding
 
-class HistFragment : Fragment() {
-    private var _binding: FragmentHistBinding? = null
-    private val binding get() = _binding!!
+class ProductListFragment : Fragment() {
+
+    private lateinit var binding: FragmentProductListBinding
     private lateinit var products: ArrayList<Product>
     private lateinit var prices: ArrayList<Price>
     private lateinit var productAdapter: ProductListAdapter
     private var selectedProductIndex: Int = -1
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHistBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentProductListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -58,23 +59,7 @@ class HistFragment : Fragment() {
     private fun onItemClick() {
         if (selectedProductIndex >= 0 && selectedProductIndex < products.size) {
             val selectedProduct = products[selectedProductIndex]
-            cambiarFragmento(selectedProductIndex)
-
-        }
-    }
-
-    private fun cambiarFragmento(seleccionado: Int) {
-        var prodFragment = ProdFragment()
-        val bundle = Bundle().apply {
-            putSerializable("producto", products[seleccionado])
-            putSerializable("precio", prices[seleccionado] )
-        }
-        prodFragment.arguments = bundle
-
-        //cambiar al fragmento de producto
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.containerView, prodFragment)
-            commit()
+            println("Selected product id: ${selectedProduct.id}")
         }
     }
 

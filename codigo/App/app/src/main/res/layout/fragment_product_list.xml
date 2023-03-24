@@ -8,20 +8,10 @@
     android:orientation="vertical"
     tools:context=".ProductListFragment">
 
-    <TextView
-        android:id="@+id/Historial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/bmenu_hist"
-        android:textAlignment="center"
-        android:textSize="24sp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_product" />

@@ -17,15 +17,19 @@
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/drawable/ic_round_person_24.xml" value="0.427" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/drawable/ic_round_qr_code_scanner_24.xml" value="0.427" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/drawable/ic_user.xml" value="0.3715" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/drawable/placeholder.xml" value="0.336" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/activity_main.xml" value="0.3212962962962963" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_blank.xml" value="0.3828125" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_fav.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_hist.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_login.xml" value="0.40357478833490124" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_noti.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_prod.xml" value="0.38425925925925924" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_prod.xml" value="0.1" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_product_list.xml" value="0.5" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_register.xml" value="0.45" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_scan.xml" value="0.33" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/fragment_user.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/item_product.xml" value="0.3338541666666667" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/layout/specs_table.xml" value="2.046875" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
         <entry key="..\:/Users/Mario/Documents/Personal/Universidad/Easycom/codigo/App/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3165" />

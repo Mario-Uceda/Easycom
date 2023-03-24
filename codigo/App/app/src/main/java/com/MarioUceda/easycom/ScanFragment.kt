@@ -32,12 +32,31 @@ class ScanFragment : Fragment() {
 
         binding.scan.setOnClickListener {
             initScanner()
-        }/*'6972453163820'*/
+        }
+    }
 
-        binding.buscar.setOnClickListener {
-            if (producto.id != "") {
+    //Funcion para iniciar el escaner
+    private fun initScanner() {
+        // Crear un IntentIntegrator para iniciar la cámara y escanear el código de barras
+        val integrator = IntentIntegrator.forSupportFragment(this)
+        integrator.setPrompt(resources.getString(R.string.msg_scn))
+        integrator.setTorchEnabled(false)
+        integrator.setBeepEnabled(true)
+        integrator.initiateScan()
+    }
+
+    //Función para obtener el codigo obtenido del escaner y abrir el fragmento de producto
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // Obtener el resultado del escaneo de código de barras
+        val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        // Verificar si se obtuvo un resultado
+        if (result != null) {
+            // Verificar si el escaneo fue exitoso
+            if (result.contents != null) {
+                // Obtener el código de barras escaneado
+                producto.id = "${result.contents.toString()}"
                 getAmazon()
-                binding.idProducto.text = producto.toString()
                 val bundle = Bundle().apply {
                     putSerializable("producto", producto)
                     putSerializable("precio", precio)
@@ -53,33 +72,7 @@ class ScanFragment : Fragment() {
         }
     }
 
-    //Funcion para iniciar el escaner
-    private fun initScanner() {
-        // Crear un IntentIntegrator para iniciar la cámara y escanear el código de barras
-        val integrator = IntentIntegrator.forSupportFragment(this)
-        integrator.setPrompt(resources.getString(R.string.msg_scn))
-        integrator.setTorchEnabled(false)
-        integrator.setBeepEnabled(true)
-        integrator.initiateScan()
-    }
-
-    //Función para obtener el codigo obtenido del escaner
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        // Obtener el resultado del escaneo de código de barras
-        val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-
-        // Verificar si se obtuvo un resultado
-        if (result != null) {
-            // Verificar si el escaneo fue exitoso
-            if (result.contents != null) {
-                // Obtener el código de barras escaneado
-                producto.id = "${result.contents.toString()}"
-                getAmazon()
-            }
-        }
-    }
-
-    //Funcion para obtener el nombre del producto
+    //Funcion para obtener la información del producto
     private fun getAmazon() {
         producto.url = runBlocking { getProductAmazonAsync().await() }
         if (producto.url != "") {
