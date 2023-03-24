@@ -17,4 +17,8 @@
     <string name="texto_precio">Precio: </string>
     <string name="texto_especificaciones">Especificaciones: </string>
     <string name="texto_descripcion">Descripcion: </string>
+    <string name="username_hint">Usuario: </string>
+    <string name="password_hint">Contraseña: </string>
+    <string name="texto_login">LOGIN</string>
+    <string name="texto_registrar">REGISTRAR</string>
 </resources>

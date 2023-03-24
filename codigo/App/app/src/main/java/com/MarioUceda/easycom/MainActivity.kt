@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         var notiFragment = NotiFragment()
         var scanFragment = ScanFragment()
         var userFragment = UserFragment()
+        var loginFragment = LoginFragment()
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_usuario -> {
-                    setCurrentFragment(userFragment)
+                    setCurrentFragment(loginFragment)
                     true
                 }
 
