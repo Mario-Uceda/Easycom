@@ -77,4 +77,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //TODO: shared preferences
+    /*
+    val sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putBoolean("dark_mode", true)
+    editor.apply()
+
+    val sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    val darkMode = sharedPref.getBoolean("dark_mode", false)
+
+    */
+
 }

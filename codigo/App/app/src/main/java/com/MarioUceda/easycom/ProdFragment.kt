@@ -23,6 +23,7 @@ class ProdFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val producto = arguments?.getSerializable("producto") as Product
         val precio = arguments?.getSerializable("precio") as Price
+
         binding.titulo.text = producto.name
         Glide.with(this).load(producto.img).into(binding.prodImg)
         binding.descripcion.text = producto.description
@@ -30,5 +31,4 @@ class ProdFragment : Fragment() {
         binding.id.text = producto.id
         binding.precio.text = precio.precio.toString()
     }
-
 }

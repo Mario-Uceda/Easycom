@@ -23,4 +23,15 @@
     <string name="repassword_hint">Repetir contraseña: </string>
     <string name="texto_login">LOGIN</string>
     <string name="texto_registrar">REGISTRAR</string>
+    <string name="texto_anonimo">ANONIMO</string>
+    <!--Toast-->
+    <string name="toast_registrado">"Usuario registrado"</string>
+    <string name="toast_error_contraseñas">"Error: Las contraseñas no coinciden"</string>
+    <string name="toast_error_email">"Error: Introduce un email válido"</string>
+    <string name="toast_error_campos">"Error: Rellena todos los campos"</string>
+    <string name="toast_error_registrado">"Error: Ese email ya ha sido registrado"</string>
+    <string name="toast_error_username">"Error: El nombre de usuario solo puede contener letras y numeros"</string>
+    <string name="toast_error_contraseña">"Error: La contraseña es demasiado corta"</string>
+    <string name="toast_error_registro">"Error: Se ha cometido un error de conexion"</string>
+    <string name="toast_error_sql">"Error: Caracteres no válidos"</string>
 </resources>
