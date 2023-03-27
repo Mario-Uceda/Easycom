@@ -55,7 +55,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.0' //Barcode
     implementation ('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false } //Barcode
     implementation 'org.jsoup:jsoup:1.14.3' //WebScraping
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3' //WebScraping
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3' //WebScraping y Peticiones
     implementation 'com.github.bumptech.glide:glide:4.12.0' //Glide Image
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0' //Glide Image
 

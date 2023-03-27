@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.MarioUceda.easycom.databinding.FragmentRegisterBinding
 import kotlinx.coroutines.*
-import java.sql.SQLException
 
 class RegisterFragment : Fragment() {
 
@@ -47,23 +46,18 @@ class RegisterFragment : Fragment() {
             } else if (!sqlinjection.matches(email) ||!sqlinjection.matches(username) || !sqlinjection.matches(password) || !sqlinjection.matches(password2)) { // Comprobar que no se haya introducido código SQL
                 Toast.makeText(context, getString(R.string.toast_error_sql), Toast.LENGTH_SHORT).show()
             } else {
-                val url = "http://easycom.mariouceda.es/registro.php"
-
-
-                /*
-                try {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        val bbdd = BBDD()
-                        val registrado = bbdd.registrarUsuario(email, username, password)
-                        if (registrado) {
-                            Toast.makeText(context, getString(R.string.toast_registrado), Toast.LENGTH_SHORT).show()
-                        }else{
-                            Toast.makeText(context,getString(R.string.toast_error_registro) , Toast.LENGTH_SHORT) .show()
-                        }
+                val bbdd = BBDD()
+                var registrado = runBlocking { bbdd.registrarUsuario( email, username, password).await() }
+                println("principal: "+registrado.toString())
+                if (registrado) {
+                    Toast.makeText(context, getString(R.string.toast_exito_registro), Toast.LENGTH_SHORT).show()
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.containerView, LoginFragment())
+                        commit()
                     }
-                } catch (e: SQLException) {
-                    e.printStackTrace()
-                }*/
+                } else {
+                    Toast.makeText(context, getString(R.string.toast_error_registro), Toast.LENGTH_SHORT).show()
+                }
             }
 
             binding.btnLogin.setOnClickListener {

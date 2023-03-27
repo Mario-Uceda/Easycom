@@ -24,7 +24,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogin.setOnClickListener {
-            println("Usuario: ${binding.etUsername.text}")
+            println("Email: ${binding.etEmail.text}")
             println("Contraseña: ${binding.etPassword.text}")
         }
         binding.btnRegistrar.setOnClickListener {
