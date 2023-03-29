@@ -35,4 +35,6 @@
     <string name="toast_error_registro">"Error: Se ha cometido un error de conexion"</string>
     <string name="toast_error_sql">"Error: Caracteres no válidos"</string>
     <string name="toast_exito_registro">"Usuario creado con exito"</string>
+    <string name="toast_exito_login">"Se ha iniciado sesión"</string>
+    <string name="toast_fallo_login">"Usuario o contraseña erroneos"</string>
 </resources>
