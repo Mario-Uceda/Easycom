@@ -12,3 +12,4 @@ Route::post('login', [App\Http\Controllers\UserController::class, 'login']);
 Route::post('logout', [App\Http\Controllers\UserController::class, 'logout']);
 Route::post('register', [App\Http\Controllers\UserController::class, 'register']);
 Route::get('/detalle/{id}', [App\Http\Controllers\ProductoController::class, 'detalle'])->name('detalle');
+Route::get('/priceUpdate', [App\Http\Controllers\PrecioController::class, 'priceUpdate'])->name('priceUpdate');
