@@ -1,0 +1,14 @@
+.btn {
+    background-color: #f49b00 !important;
+    border-color: #f49b00 !important;
+    padding: 10px 20px !important;
+}
+
+.btn:hover {
+    background-color: #f48100 !important;
+    border-color: #f48100 !important;
+}
+.form-control:focus {
+    border-color: #f49b00 !important;
+    box-shadow: 0 0 0 0.2rem #f49b00 !important;
+}
