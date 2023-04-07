@@ -29,7 +29,13 @@
               </li>
 @auth
               <li class="nav-item">
-                <a class="nav-link" href="/dashboard">Dashboard</a>
+                <a class="nav-link" href="/historial">Historial</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/favoritos">Favoritos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/notificaciones">Notificaciones</a>
               </li>
             </ul>
             <ul class="navbar-nav ml-auto">

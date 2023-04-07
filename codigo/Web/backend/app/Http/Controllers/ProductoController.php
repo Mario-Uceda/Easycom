@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
+
+    public function detalle($id)
+    {
+        $producto = Producto::find($id);
+        $precios = Precio::where('id_producto', $id);
+        return view('detalle', [
+            'producto' => $producto,
+            'precios' => $precios
+        ]);
+    }
+
     public function buscarProducto(Request $request)
     {
         $barcode = $request->barcode;
