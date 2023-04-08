@@ -11,7 +11,7 @@
     <title>Easycom</title>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">

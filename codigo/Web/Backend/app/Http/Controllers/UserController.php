@@ -15,7 +15,7 @@ class UserController extends Controller
                 
         if (Auth::attempt($req->only('email', 'password'), $remember)) {
             $req->session()->regenerate();
-            return redirect()->intended('dashboard')->with('status', __('auth.login'));
+            return redirect()->intended('/')->with('status', __('auth.login'));
         }
         throw ValidationException::withMessages([
             'email' => __('auth.failed')
@@ -45,6 +45,17 @@ class UserController extends Controller
         $user->save();
 
         Auth::login($user);
-        return redirect()->to('dashboard')->with('status', __('auth.register'));
+        return redirect()->to('/')->with('status', __('auth.register'));
+    }
+
+    function loginMovil(Request $req)
+    {
+        $remember = $req->filled('remember');
+                
+        if (Auth::attempt($req->only('email', 'password'), $remember)) {
+            $req->session()->regenerate();
+            return response()->json(['status' => 'ok', 'message' => __('auth.login')]);
+        }
+        return response()->json(['status' => 'error', 'message' => __('auth.failed')]);
     }
 }
