@@ -10,7 +10,3 @@ use App\Http\Controllers\ProductoController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('registrar', [UsuarioController::class , 'registrar']);
-Route::post('login', [UsuarioController::class , 'login']);
-Route::post('buscarProducto', [ProductoController::class, 'buscarProducto']);
