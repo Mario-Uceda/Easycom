@@ -1,4 +1,4 @@
-package com.MarioUceda.easycom
+package com.MarioUceda.easycom.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.MarioUceda.easycom.BBDD
+import com.MarioUceda.easycom.R
 import com.MarioUceda.easycom.databinding.FragmentRegisterBinding
 import kotlinx.coroutines.*
 

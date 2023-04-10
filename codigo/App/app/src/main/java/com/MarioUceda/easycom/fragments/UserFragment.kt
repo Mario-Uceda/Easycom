@@ -1,4 +1,4 @@
-package com.MarioUceda.easycom
+package com.MarioUceda.easycom.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

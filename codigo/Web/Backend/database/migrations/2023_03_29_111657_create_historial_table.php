@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_user')->references('id')->on('users');
             $table->foreignId('id_producto')->references('id')->on('productos');
-            $table->string('tienda');
+            $table->boolean('favorito');
             $table->timestamps();
             $table->softDeletes();
         });

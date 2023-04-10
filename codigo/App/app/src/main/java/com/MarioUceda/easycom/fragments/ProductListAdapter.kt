@@ -1,23 +1,24 @@
-package com.MarioUceda.easycom
+package com.MarioUceda.easycom.fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.MarioUceda.easycom.classes.Producto
 import com.MarioUceda.easycom.databinding.ItemProductBinding
 import com.bumptech.glide.Glide
 
-class ProductListAdapter(private val products: List<Product>, private val onItemClickListener: (Int) -> Unit) :
+class ProductListAdapter(private val products: List<Producto>, private val onItemClickListener: (Int) -> Unit) :
     RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) {
+        fun bind(producto: Producto) {
             binding.apply {
-                productName.text = product.name
-                productDescription.text = product.description
+                productName.text = producto.name
+                productDescription.text = producto.description
                 // Cargar la imagen utilizando Glide
                 Glide.with(binding.root)
-                    .load(product.img)
+                    .load(producto.img)
                     .into(binding.productImage)
             }
             itemView.setOnClickListener {

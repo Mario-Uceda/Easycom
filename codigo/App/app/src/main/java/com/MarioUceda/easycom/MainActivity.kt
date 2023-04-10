@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.MarioUceda.easycom.databinding.ActivityMainBinding
+import com.MarioUceda.easycom.fragments.*
 
 class MainActivity : AppCompatActivity() {
 

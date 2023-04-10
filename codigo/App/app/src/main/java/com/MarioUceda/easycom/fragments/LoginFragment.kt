@@ -1,4 +1,4 @@
-package com.MarioUceda.easycom
+package com.MarioUceda.easycom.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,13 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.MarioUceda.easycom.Peticiones
+import com.MarioUceda.easycom.R
+import com.MarioUceda.easycom.classes.SessionManager
 import com.MarioUceda.easycom.databinding.FragmentLoginBinding
-import kotlinx.coroutines.runBlocking
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private lateinit var peticiones : Peticiones
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +28,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        sessionManager = SessionManager(binding.root.context)
+        peticiones = Peticiones()
         binding.btnLogin.setOnClickListener {
             println("Email: ${binding.etEmail.text}")
             println("Contraseña: ${binding.etPassword.text}")
@@ -36,21 +41,11 @@ class LoginFragment : Fragment() {
             } else if (!emailregex.matches(email)) {// Comprobar que el email sea correcto
                 Toast.makeText(context, getString(R.string.toast_error_email), Toast.LENGTH_SHORT).show()
             } else {
-                val http = Peticiones()
-                var logged = runBlocking { http.iniciarSesion( email, password).await() }
-                when {
-                    logged == 0 -> {
-                        Toast.makeText(context, getString(R.string.toast_fallo_login), Toast.LENGTH_SHORT).show()
-                    }
-                    logged > 0 -> {
-                        Toast.makeText(context, getString(R.string.toast_exito_login), Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {
-                        Toast.makeText(context, getString(R.string.toast_error_registro), Toast.LENGTH_SHORT).show()
-                    }
-                }
+
+                peticiones.iniciarSesion(email, password)
             }
         }
+
         binding.btnRegistrar.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 replace(R.id.containerView, RegisterFragment())
