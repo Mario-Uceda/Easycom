@@ -76,8 +76,12 @@ class Peticiones(context: Context?) {
     // Funcion para buscar un producto
     fun buscarProducto(barcode: String, callback: (ProdResponse) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            val email = sessionManager.getUserData().email ?: ""
-            val id = sessionManager.getUserData().id ?: ""
+            var email : String = ""
+            var id : String  =""
+            if(sessionManager.isUserLogged()) {
+                email = sessionManager.getUserData().email
+                id = sessionManager.getUserData().id
+            }
             val call = getRetrofit().create(APIService::class.java).buscarProductos(barcode, email, id)
             val result = call.body()
             if (call.isSuccessful && result != null && result.status == "ok") {

@@ -49,8 +49,8 @@ class ProductoController extends Controller
         // se devuelve el producto y el precio
         return response()->json([
             'status' => 'ok',
-            'producto' => $producto,
-            'precio' => $precio
+            'product' => $producto,
+            'price' => $precio
         ]);
     }
 

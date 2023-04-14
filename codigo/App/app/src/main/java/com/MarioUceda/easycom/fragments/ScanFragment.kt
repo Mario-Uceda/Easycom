@@ -65,16 +65,13 @@ class ScanFragment : Fragment() {
                 barcode = "${result.contents.toString()}"
                 peticiones = Peticiones(context)
                 peticiones.buscarProducto(barcode) { respuesta ->
-                    println(respuesta.status)
-                    //println(respuesta.price.urlProducto)
-                    //println(respuesta.product.name)
-                    /*if (respuesta.price != null && respuesta.product != null) {
+                    if (respuesta.price != null && respuesta.product != null) {
                         precio = respuesta.price
                         producto = respuesta.product
                         verProducto()
                     } else {
                         Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
-                    }*/
+                    }
                 }
             }
         }
