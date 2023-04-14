@@ -37,8 +37,9 @@ class ProductoController extends Controller
         $idUser = $request->id;
         $email = $request->email;
         $usuario = User::where('id', $idUser)->where('email', $email)->first();
-        // si existe, se registra en el historial
-        if ($usuario != null) {
+        $historial = Historial::where('id_user', $idUser)->where('id_producto', $producto->id)->first();
+        // si existe, y no había buscado antes ese producto se registra en el historial
+        if ($usuario != null && $historial == null) {
             $historial = new Historial();
             $historial->id_user = $usuario->id;
             $historial->id_producto = $producto->id;

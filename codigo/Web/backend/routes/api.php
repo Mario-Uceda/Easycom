@@ -10,5 +10,8 @@ use App\Http\Controllers\ProductoController;
 Route::post('login', [UserController::class, 'loginMovil']);
 Route::post('register', [UserController::class, 'registerMovil']);
 
-Route::get('priceUpdate', [PrecioController::class, 'priceUpdate']);
 Route::post('buscarProducto', [ProductoController::class, 'buscarProducto']);
+Route::post('historial', [HistorialController::class, 'getHistorial']);
+
+
+Route::get('priceUpdate', [PrecioController::class, 'priceUpdate']);
