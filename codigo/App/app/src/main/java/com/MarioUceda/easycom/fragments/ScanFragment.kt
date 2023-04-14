@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.MarioUceda.easycom.Peticiones
 import com.MarioUceda.easycom.classes.Precio
-import com.MarioUceda.easycom.classes.Producto
 import com.MarioUceda.easycom.R
+import com.MarioUceda.easycom.classes.Producto
 import com.MarioUceda.easycom.databinding.FragmentScanBinding
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
@@ -17,10 +19,14 @@ import com.google.zxing.integration.android.IntentResult
 class ScanFragment : Fragment() {
     private var _binding: FragmentScanBinding? = null
     private val binding get() = _binding!!
-    //private var producto = Producto("","")
-    private var barcode = ""
-    private var precio : Precio? = null
+
+    private lateinit var producto : Producto
+    private lateinit var barcode : String
+    private lateinit var  peticiones : Peticiones
+    private lateinit var precio : Precio
+
     private var prodFragment = ProdFragment()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,25 +57,40 @@ class ScanFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         // Obtener el resultado del escaneo de código de barras
         val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-
         // Verificar si se obtuvo un resultado
         if (result != null) {
             // Verificar si el escaneo fue exitoso
             if (result.contents != null) {
                 // Obtener el código de barras escaneado
                 barcode = "${result.contents.toString()}"
-                /*val bundle = Bundle().apply {
-                    putSerializable("producto", producto)
-                    putSerializable("precio", precio)
+                peticiones = Peticiones(context)
+                peticiones.buscarProducto(barcode) { respuesta ->
+                    println(respuesta.status)
+                    //println(respuesta.price.urlProducto)
+                    //println(respuesta.product.name)
+                    /*if (respuesta.price != null && respuesta.product != null) {
+                        precio = respuesta.price
+                        producto = respuesta.product
+                        verProducto()
+                    } else {
+                        Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
+                    }*/
                 }
-                prodFragment.arguments = bundle
-
-                //cambiar al fragmento de producto
-                requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.containerView, prodFragment)
-                    commit()
-                }*/
             }
+        }
+    }
+
+    fun verProducto() {
+        val bundle = Bundle().apply {
+            putSerializable("producto", producto)
+            putSerializable("precio", precio)
+        }
+        prodFragment.arguments = bundle
+
+        //cambiar al fragmento de producto
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.containerView, prodFragment)
+            commit()
         }
     }
 

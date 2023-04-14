@@ -1,22 +1,34 @@
 package com.MarioUceda.easycom
 
-import com.google.gson.JsonObject
-import okhttp3.ResponseBody
-import retrofit2.Call
+import com.MarioUceda.easycom.classes.AuthResponse
+import com.MarioUceda.easycom.classes.ProdResponse
 import retrofit2.Response
 import retrofit2.http.*
 
 interface APIService {
-    @GET("token_csrf")
-    suspend fun CSRF(): Response<String>
-    @POST("login")
-    suspend fun iniciarSesion(@Body usuario: JsonObject): Response<ResponseBody>
+
     @FormUrlEncoded
-    @POST("loginMovil")
+    @POST("login")
     suspend fun iniciarSesion(
-        @Header("X-CSRF-Token") token: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<ResponseBody>
+    ): Response<AuthResponse>
+
+
+    @FormUrlEncoded
+    @POST("register")
+    suspend fun registrar(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Response<AuthResponse>
+
+    @FormUrlEncoded
+    @POST("buscarProducto")
+    suspend fun buscarProductos(
+        @Field("barcode") barcode: String,
+        @Field("email") email: String,
+        @Field("id") id: String
+    ): Response<ProdResponse>
 
 }

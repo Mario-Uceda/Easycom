@@ -9,5 +9,5 @@ data class Precio (
     @SerializedName("precio") var precio: Double,
     @SerializedName("tienda") var tienda: String,
     @SerializedName("url_producto") var urlProducto : String,
-    @SerializedName("created_at") var fecha : String
+    @SerializedName("created_at") var created_at : String,
 ) : Serializable

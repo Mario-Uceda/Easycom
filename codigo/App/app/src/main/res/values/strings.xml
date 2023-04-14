@@ -22,8 +22,10 @@
     <string name="email_hint">Email: </string>
     <string name="repassword_hint">Repetir contraseña: </string>
     <string name="texto_login">LOGIN</string>
+    <string name="texto_logout">LOGOUT</string>
     <string name="texto_registrar">REGISTRAR</string>
     <string name="texto_anonimo">ANONIMO</string>
+    <string name="texto_msg_scanner">Empieza a ahorrar al comparando el precio de los productos en las siguientes tiendas: </string>
     <!--Toast-->
     <string name="toast_registrado">"Usuario registrado"</string>
     <string name="toast_error_contraseñas">"Error: Las contraseñas no coinciden"</string>
@@ -33,8 +35,10 @@
     <string name="toast_error_username">"Error: El nombre de usuario solo puede contener letras y numeros"</string>
     <string name="toast_error_contraseña">"Error: La contraseña es demasiado corta"</string>
     <string name="toast_error_registro">"Error: Se ha cometido un error de conexion"</string>
+    <string name="toast_error_producto">"Error: No se ha podido encontrar el producto"</string>
     <string name="toast_error_sql">"Error: Caracteres no válidos"</string>
     <string name="toast_exito_registro">"Usuario creado con exito"</string>
     <string name="toast_exito_login">"Se ha iniciado sesión"</string>
+    <string name="toast_exito_logout">"Se ha cerrado sesión"</string>
     <string name="toast_fallo_login">"Usuario o contraseña erroneos"</string>
 </resources>

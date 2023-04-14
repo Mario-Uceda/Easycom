@@ -6,15 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.MarioUceda.easycom.BBDD
+import com.MarioUceda.easycom.MainActivity
+import com.MarioUceda.easycom.Peticiones
 import com.MarioUceda.easycom.R
 import com.MarioUceda.easycom.databinding.FragmentRegisterBinding
-import kotlinx.coroutines.*
 
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
+    private lateinit var  peticiones : Peticiones
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +27,6 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnRegistrar.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val username = binding.etUsername.text.toString()
@@ -48,17 +48,12 @@ class RegisterFragment : Fragment() {
             } else if (!sqlinjection.matches(email) ||!sqlinjection.matches(username) || !sqlinjection.matches(password) || !sqlinjection.matches(password2)) { // Comprobar que no se haya introducido código SQL
                 Toast.makeText(context, getString(R.string.toast_error_sql), Toast.LENGTH_SHORT).show()
             } else {
-                val bbdd = BBDD()
-                var registrado = runBlocking { bbdd.registrarUsuario( email, username, password).await() }
-                println("principal: "+registrado.toString())
-                if (registrado) {
-                    Toast.makeText(context, getString(R.string.toast_exito_registro), Toast.LENGTH_SHORT).show()
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.containerView, LoginFragment())
-                        commit()
+                peticiones= Peticiones(context)
+                peticiones.registrar(username, email, password) { respuesta ->
+                    Toast.makeText(context, respuesta.message, Toast.LENGTH_SHORT).show()
+                    if (respuesta.status == "ok") {
+                        (activity as MainActivity).cambiarScanFragment()
                     }
-                } else {
-                    Toast.makeText(context, getString(R.string.toast_error_registro), Toast.LENGTH_SHORT).show()
                 }
             }
 
