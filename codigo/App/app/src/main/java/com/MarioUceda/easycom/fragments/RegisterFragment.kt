@@ -50,9 +50,11 @@ class RegisterFragment : Fragment() {
             } else {
                 peticiones= Peticiones(context)
                 peticiones.registrar(username, email, password) { respuesta ->
-                    Toast.makeText(context, respuesta.message, Toast.LENGTH_SHORT).show()
                     if (respuesta.status == "ok") {
+                        Toast.makeText(context, getString(R.string.toast_exito_registro), Toast.LENGTH_SHORT).show()
                         (activity as MainActivity).cambiarScanFragment()
+                    }else{
+                        Toast.makeText(context, getString(R.string.toast_error_registro), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -14,4 +14,4 @@ Route::post('buscarProducto', [ProductoController::class, 'buscarProducto']);
 Route::post('historial', [HistorialController::class, 'getHistorial']);
 
 
-Route::get('priceUpdate', [PrecioController::class, 'priceUpdate']);
+Route::get('actualizarPrecios', [PrecioController::class, 'actualizarPrecios']);

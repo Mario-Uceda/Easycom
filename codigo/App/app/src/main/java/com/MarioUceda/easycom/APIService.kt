@@ -1,6 +1,7 @@
 package com.MarioUceda.easycom
 
 import com.MarioUceda.easycom.classes.AuthResponse
+import com.MarioUceda.easycom.classes.HistResponse
 import com.MarioUceda.easycom.classes.ProdResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -28,7 +29,15 @@ interface APIService {
     suspend fun buscarProductos(
         @Field("barcode") barcode: String,
         @Field("email") email: String,
-        @Field("id") id: String
+        @Field("id") id: String,
+        @Field("idProducto") idProducto: String
     ): Response<ProdResponse>
+
+    @FormUrlEncoded
+    @POST("historial")
+    suspend fun getHistorial(
+        @Field("id_usuario") id: String,
+        @Field("favorito") favorito: Int
+    ): Response<HistResponse>
 
 }

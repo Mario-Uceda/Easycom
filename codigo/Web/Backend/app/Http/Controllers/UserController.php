@@ -59,10 +59,10 @@ class UserController extends Controller
         if (Auth::attempt($req->only('email', 'password'), true)) {
             // Si el usuario se logueó correctamente, devuelve el usuario
             $Usuario = User::where('email', $req->email)->select('id', 'name', 'email', 'created_at')->first();
-            return response()->json(['status' => 'ok', 'message' => __('auth.login'), 'user' => $Usuario]);
+            return response()->json(['status' => 'ok', 'user' => $Usuario]);
         } else {
             // Si el usuario no se logueó correctamente, regresa un mensaje de error
-            return response()->json(['status' => 'error', 'message' => __('auth.failed')]);
+            return response()->json(['status' => 'error']);
 
         }
     }
@@ -83,6 +83,6 @@ class UserController extends Controller
 
         //Auth::login($user);
         $Usuario = User::where('email', $req->email)->select('id', 'name', 'email', 'created_at')->first();
-        return response()->json(['status' => 'ok', 'message' => __('auth.register'), 'user' => $Usuario]);
+        return response()->json(['status' => 'ok', 'user' => $Usuario]);
     }
 }

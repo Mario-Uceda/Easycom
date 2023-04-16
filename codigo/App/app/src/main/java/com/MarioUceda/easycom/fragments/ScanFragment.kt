@@ -37,7 +37,7 @@ class ScanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        peticiones = Peticiones(context)
         binding.scan.setOnClickListener {
             initScanner()
         }
@@ -53,25 +53,24 @@ class ScanFragment : Fragment() {
         integrator.initiateScan()
     }
 
-    //Función para obtener el codigo obtenido del escaner y abrir el fragmento de producto
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        // Obtener el resultado del escaneo de código de barras
         val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        // Verificar si se obtuvo un resultado
         if (result != null) {
-            // Verificar si el escaneo fue exitoso
             if (result.contents != null) {
-                // Obtener el código de barras escaneado
                 barcode = "${result.contents.toString()}"
-                peticiones = Peticiones(context)
-                peticiones.buscarProducto(barcode) { respuesta ->
-                    if (respuesta.price != null && respuesta.product != null) {
-                        precio = respuesta.price
-                        producto = respuesta.product
-                        verProducto()
-                    } else {
-                        Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
+
+                try {
+                    peticiones.buscarProducto(barcode, "") { respuesta ->
+                        if (respuesta.status == "ok" && respuesta.price != null && respuesta.product != null) {
+                            precio = respuesta.price
+                            producto = respuesta.product
+                            verProducto()
+                        } else {
+                            Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
+                        }
                     }
+                }catch (e: Exception) {
+                    Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
                 }
             }
         }

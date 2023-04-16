@@ -5,10 +5,12 @@
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/lightorange</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:color">@color/white</item>
         <item name="colorAccent">@color/lightorange</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
         <item name="android:background">@color/black</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/card_background_color_dark</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 

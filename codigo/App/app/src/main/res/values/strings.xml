@@ -36,6 +36,8 @@
     <string name="toast_error_contraseña">"Error: La contraseña es demasiado corta"</string>
     <string name="toast_error_registro">"Error: Se ha cometido un error de conexion"</string>
     <string name="toast_error_producto">"Error: No se ha podido encontrar el producto"</string>
+    <string name="toast_error_historial">"Error: No se ha podido cargar el historial"</string>
+    <string name="toast_vacio_historial">"El historial está vacío"</string>
     <string name="toast_error_sql">"Error: Caracteres no válidos"</string>
     <string name="toast_exito_registro">"Usuario creado con exito"</string>
     <string name="toast_exito_login">"Se ha iniciado sesión"</string>
