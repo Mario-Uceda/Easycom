@@ -80,10 +80,10 @@ class ProductoController extends Controller
         //guardar producto
         $producto = new Producto();
         $producto->barcode = $barcode;
-        $producto->nombre = $producto_amazon[0];
-        $producto->url_img = $producto_amazon[1];
-        $producto->descripcion = $producto_amazon[2];
-        $producto->especificaciones_tecnicas = $producto_amazon[3];
+        $producto->nombre = trim($producto_amazon[0]);
+        $producto->url_img = trim($producto_amazon[1]);
+        $producto->descripcion = trim($producto_amazon[2]);
+        $producto->especificaciones_tecnicas = trim($producto_amazon[3]);
         $producto->save();
         $producto = Producto::where('barcode', $barcode)->select('id','barcode', 'nombre', 'url_img', 'descripcion','especificaciones_tecnicas')->first();
         //guardar precio

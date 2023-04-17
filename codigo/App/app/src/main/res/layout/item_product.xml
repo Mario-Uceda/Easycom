@@ -5,9 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/card_background_color"
     android:padding="8dp"
-    app:cardBackgroundColor="@color/card_background_color"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
@@ -16,14 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="1dp"
+        android:background="@drawable/tarjeta">
 
         <ImageView
             android:id="@+id/product_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder" />
+            android:scaleType="centerInside"
+            android:src="@drawable/placeholder"
+            android:background="@color/white"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,14 +38,18 @@
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
                 android:text="Product Name"
                 android:textSize="18sp"
+                android:justificationMode="inter_word"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/product_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:justificationMode="inter_word"
                 android:text="Product Description"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />

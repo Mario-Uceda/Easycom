@@ -7,7 +7,7 @@ def get_user_agent():
     with open('../WebScraping/UserAgents.txt', 'r') as f:
         user_agents = f.read().splitlines()
         agent = random.choice(user_agents)
-        return agent
+        return {'User-Agent': agent}
     
 def get_proxy():
     response = requests.get('http://pubproxy.com/api/proxy?format=json')
@@ -16,8 +16,7 @@ def get_proxy():
 def get_soup(url_product):
     #Función que devuelve el objeto soup de un producto
     try:
-        headers = {'User-Agent': get_user_agent()}
-        response = requests.get(url_product, headers=headers, proxies=get_proxy())
+        response = requests.get(url_product, headers=get_user_agent())
         soup = bs(response.text, 'html.parser')
         return soup
     except Exception as e:
