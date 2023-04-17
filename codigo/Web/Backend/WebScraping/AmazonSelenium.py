@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import time
 from bs4 import BeautifulSoup as bs
 import json
@@ -25,24 +28,24 @@ chrome_options.add_argument('--log-level=3')
 barcode = '6972453163820'
 
 browser_driver = Service('/usr/bin/chromedriver')
-pagina = webdriver.Chrome(options=chrome_options, service=browser_driver)
+#pagina = webdriver.Chrome(options=chrome_options, service=browser_driver)
+pagina = webdriver.Chrome(service=browser_driver)
 pagina.get("https://www.amazon.es/s?k=" + barcode)
 
-pagina.implicitly_wait(5)
-try:
-    formulario = pagina.find_element_by_id("sp-cc")
-    aceptar_boton = formulario.find_element_by_id("sp-cc-accept")
-    aceptar_boton.click()
-except:
-    pass
+while(True):
+    try:
+        cookie = WebDriverWait(pagina, 3).until(EC.presence_of_element_located((By.ID, "sp-cc-accept")))
+        cookie.click()
+    except TimeoutException:
+        pagina.refresh()
+        continue
+    else:
+        break
 
 #pagina.find_element(By.CLASS_NAME, "a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal").click()
 links = pagina.find_elements(By.CSS_SELECTOR, ".a-link-normal.s-underline-text.s-underline-link-text.s-link-style.a-text-normal")
 if len(links) > 0:
     links[0].click()
-
-
-time.sleep(3)
 
 soup = bs(pagina.page_source, 'html.parser')
 
