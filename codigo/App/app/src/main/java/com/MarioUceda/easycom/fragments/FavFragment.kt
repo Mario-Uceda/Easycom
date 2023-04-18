@@ -13,7 +13,6 @@ import com.MarioUceda.easycom.classes.Producto
 import com.MarioUceda.easycom.R
 import com.MarioUceda.easycom.classes.Historial
 import com.MarioUceda.easycom.databinding.FragmentFavBinding
-import com.MarioUceda.easycom.databinding.FragmentHistBinding
 
 class FavFragment : Fragment() {
     private var _binding: FragmentFavBinding? = null

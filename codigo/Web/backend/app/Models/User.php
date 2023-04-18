@@ -13,6 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    protected $table = 'users';
+
     //constructor con parametros
     public function __construct($name = null, $email = null, $password = null)
     {
