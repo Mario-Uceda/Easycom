@@ -26,7 +26,7 @@ class ProductoController extends Controller
         $idProducto = $request->idProducto;
         if($idProducto != null || $idProducto != "") {
             $producto = Producto::where('id', $idProducto)->select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->first();
-            $precio = Precio::where('id_producto', $producto->id)->latest('created_at')->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
+            $precio = Precio::where('id_producto', $idProducto)->latest('created_at')->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
         }else{
             $barcode = $request->barcode;
             $producto = Producto::where('barcode', $barcode)->select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->first();
@@ -43,16 +43,14 @@ class ProductoController extends Controller
                 $precio = Precio::where('id_producto', $producto->id)->latest('created_at')->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
             }
             // comprobar si el usuario existe
+            $idProducto = $producto->id;
             $idUser = $request->id;
             $email = $request->email;
             $usuario = User::where('id', $idUser)->where('email', $email)->first();
-            $historial = Historial::where('id_user', $idUser)->where('id_producto', $producto->id)->first();
+            $historial = Historial::where('id_user', $idUser)->where('id_producto', $idProducto)->first();
             // si existe, y no había buscado antes ese producto se registra en el historial
             if ($usuario != null && $historial == null) {
-                $historial = new Historial();
-                $historial->id_user = $usuario->id;
-                $historial->id_producto = $producto->id;
-                $historial->favorito = false;
+                $historial = new Historial($idUser, $idProducto, false);
                 $historial->save();
             }
 
@@ -78,20 +76,11 @@ class ProductoController extends Controller
             ];
         }
         //guardar producto
-        $producto = new Producto();
-        $producto->barcode = $barcode;
-        $producto->nombre = trim($producto_amazon[0]);
-        $producto->url_img = trim($producto_amazon[1]);
-        $producto->descripcion = trim($producto_amazon[2]);
-        $producto->especificaciones_tecnicas = trim($producto_amazon[3]);
+        $producto = new Producto($barcode, trim($producto_amazon[0]), trim($producto_amazon[1]), trim($producto_amazon[2]), trim($producto_amazon[3]));
         $producto->save();
         $producto = Producto::where('barcode', $barcode)->select('id','barcode', 'nombre', 'url_img', 'descripcion','especificaciones_tecnicas')->first();
         //guardar precio
-        $precio = new Precio();
-        $precio->id_producto = $producto->id;
-        $precio->url_producto = $precio_amazon[0];
-        $precio->tienda = $precio_amazon[1];
-        $precio->precio = $precio_amazon[2];
+        $precio = new Precio($producto->id, $precio_amazon[2], $precio_amazon[1], $precio_amazon[0]);
         $precio->save();
         $precio = Precio::where('id_producto', $producto->id)->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
         //devolver producto y precio

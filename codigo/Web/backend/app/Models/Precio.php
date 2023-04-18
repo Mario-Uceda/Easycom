@@ -10,6 +10,14 @@ class Precio extends Model
 {
     use HasFactory, SoftDeletes;
 
+    //constructor con parametros
+    public function __construct($id_producto = null, $precio = null, $tienda = null, $url_producto = null)
+    {
+        $this->id_producto = $id_producto;
+        $this->precio = $precio;
+        $this->tienda = $tienda;
+        $this->url_producto = $url_producto;
+    }
     protected $table = 'precios';
 
     protected $primaryKey = 'id_precio';

@@ -62,6 +62,7 @@ class HistFragment : Fragment() {
     private fun onItemClick() {
         if (selectedProductIndex >= 0 && selectedProductIndex < productos.size) {
             val selectedProduct = productos[selectedProductIndex]
+
             cambiarFragmento(selectedProductIndex)
 
         }
@@ -71,7 +72,7 @@ class HistFragment : Fragment() {
         var prodFragment = ProdFragment()
         val bundle = Bundle().apply {
             putSerializable("producto", productos[seleccionado])
-            putSerializable("precio", precios[seleccionado] )
+            putSerializable("precio", precios[seleccionado])
         }
         prodFragment.arguments = bundle
 

@@ -41,10 +41,10 @@ class UserController extends Controller
             'password' => 'required|confirmed'
         ]);
 
-        $user = new User();
-        $user->name = $req->name;
-        $user->email = $req->email;
-        $user->password = bcrypt($req->password);
+        $name = $req->name;
+        $email = $req->email;
+        $password = bcrypt($req->password);
+        $user = new User($name, $email, $password);
         $user->save();
 
         Auth::login($user);
@@ -75,14 +75,14 @@ class UserController extends Controller
             'password' => 'required|string'
         ]);
 
-        $user = new User();
-        $user->name = $req->name;
-        $user->email = $req->email;
-        $user->password = bcrypt($req->password);
+        $name = $req->name;
+        $email = $req->email;
+        $password = bcrypt($req->password);
+        $user = new User($name, $email, $password);
         $user->save();
 
         //Auth::login($user);
-        $Usuario = User::where('email', $req->email)->select('id', 'name', 'email', 'created_at')->first();
+        $Usuario = User::where('email', $email)->select('id', 'name', 'email', 'created_at')->first();
         return response()->json(['status' => 'ok', 'user' => $Usuario]);
     }
 }

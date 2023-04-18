@@ -11,20 +11,19 @@ class PrecioController extends Controller
         $script_path = '../WebScraping/ActualizarPrecios.py';
 
         $precios = Precio::select('id_producto', 'url_producto', 'tienda')->groupBy('id_producto', 'url_producto','tienda')->get();
-
+        $contador = 0;
         foreach ($precios as $precio_anterior) {
             $url = $precio_anterior->url_producto;
             $tienda = $precio_anterior->tienda;
+            $id = $precio_anterior->id_producto;
             $command = 'python ' . $script_path . ' "' . $url . '" "' . $tienda . '" 2>&1';
             exec($command, $output);
-            $precio = $output[0];
-            echo $precio;
-            $precio_nuevo = new Precio();
-            $precio_nuevo->id_producto = $precio_anterior->id_producto;
-            $precio_nuevo->precio = $precio;
-            $precio_nuevo->tienda = $tienda;
-            $precio_nuevo->url_producto = $url;
-            $precio_nuevo->save();
+            $precio = $output[$contador];
+            $contador++;
+            if (is_numeric($precio)) {
+                $precio_nuevo = new Precio($id, $precio, $tienda, $url);
+                $precio_nuevo->save();
+            }
         }
     }
 
