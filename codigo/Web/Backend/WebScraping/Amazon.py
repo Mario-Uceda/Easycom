@@ -63,9 +63,12 @@ def get_price(soup):
         decimal = soup.select_one(".a-price-whole").text.split(",")[0]
         fraction = soup.select_one(".a-price-fraction").text.split(" ")[0]
         precio = float(decimal + "." + fraction)
-        return precio
     except Exception as e:
-        print(e)
+        precio = soup.select_one("#priceblock_ourprice > span").text.split(" ")[0]
+        precio = float(precio.replace(",", ".").replace("€", ""))
+    #compruebo si el precio es un número, en caso de que no lo sea, no devuelvo nada
+    if isinstance(precio, float):
+        return precio
 
 #Este método se encarga de actualizar el precio de un producto de Amazon desde su url
 def update_price(url_product):
@@ -73,4 +76,5 @@ def update_price(url_product):
         soup = ua.get_soup(url_product)
         print(get_price(soup))
     except Exception as e:
+        print("El producto no tiene precio de Amazon")
         print(e)
