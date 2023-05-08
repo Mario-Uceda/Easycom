@@ -3,7 +3,6 @@
     border-color: #f49b00 !important;
     padding: 10px 20px !important;
 }
-
 .btn:hover {
     background-color: #f48100 !important;
     border-color: #f48100 !important;
@@ -11,4 +10,45 @@
 .form-control:focus {
     border-color: #f49b00 !important;
     box-shadow: 0 0 0 0.2rem #f49b00 !important;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.custom-checkbox label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding-left: 26px;
+    margin-right: 10px;
+    font-size: 22px;
+    line-height: 22px;
+}
+
+.custom-checkbox label i.fa-regular {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #f49b00;
+    font-size: 50px;
+}
+
+.custom-checkbox label i.fa-solid {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #f49b00;
+    display: none;
+    font-size: 50px;
+}
+
+.custom-checkbox input[type="checkbox"]:checked~label i.fa-regular {
+    display: none;
+}
+
+.custom-checkbox input[type="checkbox"]:checked~label i.fa-solid {
+    display: block;
 }

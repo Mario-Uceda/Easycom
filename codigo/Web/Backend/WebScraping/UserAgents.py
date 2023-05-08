@@ -2,7 +2,7 @@ import random
 from bs4 import BeautifulSoup as bs
 import requests
 
-file = '../WebScraping/UserAgents.txt'
+file = 'WebScraping/UserAgents.txt'
 
 def get_user_agent():
     #Función que devuelve un User-Agent aleatorio

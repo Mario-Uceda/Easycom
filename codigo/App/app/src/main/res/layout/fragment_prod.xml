@@ -58,23 +58,162 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageButton
+                            android:id="@+id/amazon"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/btn_1_bg"
+                            android:padding="7dp"
+                            android:saveEnabled="false"
+                            android:scaleType="centerInside"
+                            android:scaleX="1"
+                            android:scaleY="1"
+                            android:src="@drawable/amazon" />
 
                         <TextView
-                            android:id="@+id/precio"
+                            android:id="@+id/precioAmazon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:lineSpacingExtra="24sp"
+                            android:text="-"
+                            android:textAlignment="center"
                             android:textSize="24sp"
                             android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/fechaAmazon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:lineSpacingExtra="14sp"
+                            android:text="-"
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageButton
+                            android:id="@+id/fnac"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_weight="0"
+                            android:background="@drawable/btn_1_bg"
+                            android:padding="5dp"
+                            android:saveEnabled="false"
+                            android:scaleType="centerInside"
+                            android:scaleX="1"
+                            android:scaleY="1"
+                            android:src="@drawable/fnac" />
+
+                        <TextView
+                            android:id="@+id/precioFnac"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="0"
+                            android:lineSpacingExtra="24sp"
+                            android:text="-"
+                            android:textAlignment="center"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/fechaFnac"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="0"
+                            android:lineSpacingExtra="14sp"
+                            android:text="-"
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageButton
+                            android:id="@+id/wallapop"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_weight="0"
+                            android:background="@drawable/btn_1_bg"
+                            android:saveEnabled="false"
+                            android:scaleType="centerCrop"
+                            android:scaleX="1"
+                            android:scaleY="1"
+                            android:src="@drawable/wallapop" />
+
+                        <TextView
+                            android:id="@+id/precioWallapop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="0"
+                            android:lineSpacingExtra="24sp"
+                            android:text="-"
+                            android:textAlignment="center"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/fechaWallapop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="0"
+                            android:lineSpacingExtra="14sp"
+                            android:text="-"
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>

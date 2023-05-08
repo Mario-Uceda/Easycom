@@ -18,3 +18,4 @@ Route::post('logout', [UserController::class, 'logout']);
 Route::post('register', [UserController::class, 'register']);
 Route::get('/detalle/{id}', [ProductoController::class, 'detalle'])->name('detalle');
 Route::post('buscarProducto', [ProductoController::class, 'buscarProducto']);
+Route::post('/producto/{id}/favorito', [HistorialController::class, 'cambiarFavorito']);

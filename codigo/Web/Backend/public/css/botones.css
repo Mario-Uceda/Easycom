@@ -1,0 +1,61 @@
+.amazon{
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border-color: black;
+    border-style: solid 2px;
+    background-image: url('/images/amazon.jpg');
+    background-size:90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    color: transparent;
+    text-align: center;
+    text-decoration: none;
+}
+
+.mediamarkt{
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border-color: black;
+    border-style: solid 2px;
+    background-image: url('/images/mediamarkt.png');
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    color: transparent;
+    text-align: center;
+    text-decoration: none;
+}
+
+.wallapop{
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border-color: black;
+    border-style: solid 2px;
+    background-image: url('/images/wallapop.png');
+    background-size: 120%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    color: transparent;
+    text-align: center;
+    text-decoration: none;
+}
+#titulo{
+    font-size: 60px;
+}
+
+

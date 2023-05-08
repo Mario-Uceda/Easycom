@@ -1,15 +1,18 @@
 @extends('layouts.navbar')
+<link href="{{ asset('css/tarjetas.css') }}" rel="stylesheet" type="text/css">
 
 <?php
+use App\Models\Historial;
+use App\Models\Producto;
+use App\Models\Precio;
 $productos = [];
 
-for ($i = 1; $i <= 100; $i++) {
-    $producto = [
-        'id' => $i,
-        'titulo' => 'Producto ' . $i,
-        'imagen' => 'https://picsum.photos/200/300',
-        'descripcion' => 'descripcion' . $i,
-    ];
+$idUser = auth ()->user ()->id;
+$historial = Historial::where('id_user', $idUser)->where('favorito', 1)->get();
+foreach ($historial as $h) {
+    $producto = Producto::where('id', $h->id_producto)->first();
+    $precio = Precio::where('id_producto', $h->id_producto)->latest('created_at')->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
+    $producto['precio'] = $precio;
     array_push($productos, $producto);
 }
 
@@ -39,11 +42,15 @@ $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <a href="{{ route('detalle', $producto['id']) }}">
-                                    <img src="{{ $producto['imagen'] }}" class="card-img-top" alt="{{ $producto['titulo'] }}">
+                                    <div class="img-container square-container">
+                                        <div class="img-wrapper square-wrapper">
+                                            <img src="{{ $producto['url_img'] }}" class="card-img-top p-2 img-fit" alt="{{ $producto['nombre'] }}">
+                                        </div>
+                                    </div>
                                 </a>
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $producto['titulo'] }}</h5>
-                                    <p class="card-text">{{ $producto['descripcion'] }}</p>
+                                    <h5 class="card-title textoTarjeta">{{ $producto['nombre'] }}</h5>
+                                    <p class="card-text textoTarjeta">{{ $producto['descripcion'] }}</p>
                                 </div>
                             </div>
                         </div>
@@ -51,12 +58,15 @@ $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
                             </div><div class="row">
                         @endif
                     @endforeach
+
+
+    
                 </div>
 
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item{{ $paginator->currentPage() == 1 ? ' disabled' : '' }}">
-                            <a class="page-link" href="{{ url()->current() }}?page={{ $paginator->currentPage() - 1 }}" tabindex="-1" aria-disabled="{{ $paginator->currentPage() == 1 ? 'true' : 'false' }}">Previous</a>
+                            <a class="page-link" href="{{ url()->current() }}?page={{ $paginator->currentPage() - 1 }}" tabindex="-1" aria-disabled="{{ $paginator->currentPage() == 1 ? 'true' : 'false' }}">Anterior</a>
                         </li>
                        
                         @for ($i = 1; $i <= $paginator->lastPage(); $i++)
@@ -66,7 +76,7 @@ $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
                         @endfor
                         
                         <li class="page-item{{ $paginator->currentPage() == $paginator->lastPage() ? ' disabled' : '' }}">
-                            <a class="page-link" href="{{ url()->current() }}?page={{ $paginator->currentPage() + 1 }}">Next</a>
+                            <a class="page-link" href="{{ url()->current() }}?page={{ $paginator->currentPage() + 1 }}">Siguiente</a>
                         </li>
                     </ul>
                 </nav>

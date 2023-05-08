@@ -13,9 +13,11 @@ class ProductoController extends Controller
 
     public function detalle($id)
     {
-        $producto = Producto::find($id);
-        $precios = Precio::where('id_producto', $id);
-        return view('detalle', [
+        $producto = Producto::where('id',$id)->first();
+        $precios = Precio::where('id_producto', $id)->get();
+        $historial = Historial::where('id_producto', $id)->where('id_user', auth()->user()->id)->first();
+        return view('producto', [
+            'favorito' => $historial,
             'producto' => $producto,
             'precios' => $precios
         ]);
