@@ -1,13 +1,8 @@
 package com.MarioUceda.easycom
 
 import android.content.Context
-import com.MarioUceda.easycom.classes.AuthResponse
-import com.MarioUceda.easycom.classes.HistResponse
-import com.MarioUceda.easycom.classes.ProdResponse
-import com.MarioUceda.easycom.classes.SharedPreferences
-import com.google.gson.Gson
+import com.MarioUceda.easycom.classes.*
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -105,6 +100,21 @@ class Peticiones(context: Context?) {
                 id = sessionManager.getUserData().id
             }
             val call = getRetrofit().create(APIService::class.java).getHistorial(id, favorito)
+            val result = call.body()
+            if (call.isSuccessful && result != null && result.status == "ok") {
+                println("result: $result")
+            }
+            withContext(Dispatchers.Main) {
+                callback(result!!)
+            }
+        }
+    }
+    //Funcion para cambiar el favorito
+    fun cambiarFavorito(itemFavorito : Historial, callback: (FavResponse) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var idProducto = itemFavorito.idProducto
+            var idFavorite = itemFavorito.id
+            val call = getRetrofit().create(APIService::class.java).changeFav(idProducto, idFavorite)
             val result = call.body()
             if (call.isSuccessful && result != null && result.status == "ok") {
                 println("result: $result")

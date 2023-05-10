@@ -1,6 +1,7 @@
 package com.MarioUceda.easycom
 
 import com.MarioUceda.easycom.classes.AuthResponse
+import com.MarioUceda.easycom.classes.FavResponse
 import com.MarioUceda.easycom.classes.HistResponse
 import com.MarioUceda.easycom.classes.ProdResponse
 import retrofit2.Response
@@ -40,4 +41,10 @@ interface APIService {
         @Field("favorito") favorito: Int
     ): Response<HistResponse>
 
+    @FormUrlEncoded
+    @POST("producto/{id}/favorito")
+    suspend fun changeFav(
+        @Path("id") idProducto: String,
+        @Field("id") idFavorite: String
+    ): Response<FavResponse>
 }

@@ -71,7 +71,8 @@ class FavFragment : Fragment() {
         var prodFragment = ProdFragment()
         val bundle = Bundle().apply {
             putSerializable("producto", productos[seleccionado])
-            putSerializable("precio", precios[seleccionado] )
+            putSerializable("precio", precios[seleccionado])
+            putSerializable("favorito", historial[seleccionado])
         }
         prodFragment.arguments = bundle
 
