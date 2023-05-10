@@ -16,3 +16,5 @@ Route::post('historial', [HistorialController::class, 'getHistorial']);
 Route::post('producto/{id}/favorito', [HistorialController::class, 'cambiarFavorito']);
 Route::get('actualizarPrecios', [PrecioController::class, 'actualizarPrecios']);
 Route::post('notificaciones', [NotificacionController::class, 'notificaciones']);
+
+Route::get('crearNotificaciones', [NotificacionController::class, 'crearNotificaciones']);

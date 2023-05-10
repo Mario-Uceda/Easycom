@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Historial;
 use App\Models\Notificacion;
+use App\Models\Precio;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class NotificacionController extends Controller
@@ -16,9 +19,11 @@ class NotificacionController extends Controller
             $id_producto = $h->id_producto;
             $producto = Producto::select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->where('id', $id_producto)->first();
             $precio = Precio::select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->where('id_producto', $id_producto)->latest('created_at')->first();
-            $notificacion = new Notificacion().getNotificacionByIdProducto($id_producto);
+            $notificacion = new Notificacion();
+            $notificacion = $notificacion->getNotificacionByIdProducto($id_producto);
             array_push($productos, $producto);
             array_push($precios, $precio);
+            array_push($notificaciones, $notificacion);
         }
         return response()->json([
             'status' => 'ok',
@@ -28,4 +33,15 @@ class NotificacionController extends Controller
             'notificaciones' => $notificaciones
         ]);
     }
+
+    public function crearNotificaciones() {
+        $productos = Producto::select('id')->get();
+        foreach ($productos as $p) {
+            $notificacion = new Notificacion($p->id);
+            $precio = Precio::select('id')->where('id_producto', $p->id)->latest('created_at')->first();
+            $notificacion->id_precio_nuevo = $precio->id;
+            $notificacion->save();
+        }
+    }
+
 }
