@@ -36,6 +36,11 @@ class ProductoController extends Controller
         if($idProducto != null || $idProducto != "") {
             $producto = Producto::where('id', $idProducto)->select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->first();
             $precio = Precio::where('id_producto', $idProducto)->latest('created_at')->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
+            return response()->json([
+                'status' => 'ok',
+                'product' => $producto,
+                'price' => $precio
+            ]);
         }else{
             $barcode = $request->barcode;
             $producto = Producto::where('barcode', $barcode)->select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->first();
