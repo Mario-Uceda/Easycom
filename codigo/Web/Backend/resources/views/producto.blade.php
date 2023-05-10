@@ -48,7 +48,7 @@
             
             <div class="col-8">
                 <h2 class="text-center">Historial de Precios</h2>
-                <canvas id="myChart" ></canvas>
+                <div id='grafico'></div>
             </div>
         </div>
         <div>
@@ -110,16 +110,37 @@
     <!--
         Grafica de precios
     -->
+    <script src='https://cdn.plot.ly/plotly-2.20.0.min.js'></script>
+    <script>
+        //funcion para convertir la fecha en formato dd-mm-aaaa y sumarle 2horas
+        function convertirFecha(fecha){
+            const fechaArray = fecha.split(' ');
+            const fechaArray2 = fechaArray[0].split('-');
+            const fechaString = fechaArray2[2]+'-'+fechaArray2[1]+'-'+fechaArray2[0];
+            const hora = fechaArray[1].split(':');
+            //si la hora es mayor que 24, le restamos 24 y añadimos un dia
+            if (parseInt(hora[0])+2 > 24) {
+                const horaString = (parseInt(hora[0])+2-24)+':'+hora[1]+':'+hora[2];
+                const fechaArray3 = fechaString.split('-');
+                const fechaString2 = (parseInt(fechaArray3[0])+1)+'-'+fechaArray3[1]+'-'+fechaArray3[2];
+                return fechaString2+' '+horaString;
+            } else{
+                const horaString = (parseInt(hora[0])+2)+':'+hora[1]+':'+hora[2];
+                return fechaString+' '+horaString;
+            }
+        }
+    </script>
     <script>
         const fechas = [
             @foreach ($precios as $precio)
                 '{{ $precio['created_at'] }}',
             @endforeach
         ];
-        const ultimaFecha = String(fechas[fechas.length - 1]).split(' ')[0];
-        const ultimaHora = String(fechas[fechas.length - 1]).split(' ')[1];
-        document.getElementById('ultimaFecha').innerHTML=ultimaFecha;
-        document.getElementById('ultimaHora').innerHTML=ultimaHora; 
+        const ultimaFecha = convertirFecha(String(fechas[fechas.length - 1]));
+        const Fecha = String(ultimaFecha).split(' ')[0];
+        const Hora = String(ultimaFecha).split(' ')[1];
+        document.getElementById('ultimaFecha').innerHTML=Fecha;
+        document.getElementById('ultimaHora').innerHTML=Hora; 
         
         const listaPrecios = [
             @foreach ($precios as $precio)
@@ -127,45 +148,34 @@
             @endforeach
         ];
 
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var labels = fechas;
-        var values = listaPrecios;
-        labels = labels.map(e => {
-            const m = moment(e, 'YYYY-MM-DD HH:mm:ss');
-            return m
-        });
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: "Amazon",
-                    data: values,
-                    borderWidth: 1,
-                    borderColor: 'rgba(67, 110, 218, 0.8)',
-                    backgroundColor: 'rgba(67, 110, 218, 0.2)',
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        type: 'time',
-                        time: {
-                            displayFormats: {
-                                'hour': 'HH:mm',
-                            },
-                            tooltipFormat: 'HH:mm'
-                        },
-                        ticks: {
-                            autoSkip: true,
-                            maxTicksLimit: 5,
-                            maxRotation: 0,
-                            minRotation: 0
-                        }
-                    }],
-                },
+        amazon = {
+            type: 'scatter',
+            x: fechas,
+            y: listaPrecios,
+            mode: 'lines',
+            name: 'Amazon',
+            line: {
+                color: 'rgba(67, 110, 218, 0.8)',
+                width: 1
             }
-        });
+        };
+
+        mediamarkt = {
+            type: 'scatter',
+            x: fechas,
+            y: listaPrecios.reverse(),
+            mode: 'lines',
+            name: 'mediamarkt',
+            line: {
+                color: 'rgba(255, 0, 0, 0.8)',
+                width: 1
+            }
+        };
+
+        var data = [amazon];
+
+        Plotly.newPlot('grafico', data);
+
     </script>
 
     <!--

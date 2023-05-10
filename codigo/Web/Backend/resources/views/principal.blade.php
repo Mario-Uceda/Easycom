@@ -1,7 +1,6 @@
 @extends('layouts.navbar')
 @section('contenidoPrincipal')
     <link href="{{ asset('css/botones.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css">
     <div class="container mt-5">
         <div class="row">
             <div class="d-flex align-items-center justify-content-center">
@@ -76,12 +75,21 @@
                 alert("No se ha encontrado la tienda");
         }
         else{
-            //hago una peticion a la ruta del fichero web.php para que me devuelva el producto
-            //la ruta es esta: Route::post('buscarProducto', [ProductoController::class, 'buscarProducto']);
-            //quiero pasar por post el valor de la variable inputValue
-            axios.post('/buscarProducto', {
-                barcode: inputValue
-            }).then(function (response) {
+            var parametros;
+            if ({{ Auth::check() }}) {
+                parametros = {
+                    barcode: inputValue,
+                    id: {{ Auth::user()->id }},
+                    email: " {{ Auth::user()->email }}",
+                };
+            }
+            else{
+                parametros = {
+                    barcode: inputValue
+                };
+            }
+                        
+            axios.post('/buscarProducto', parametros).then(function (response) {
                 // handle success
                 console.log(response);
                 console.log(response.data);
@@ -93,6 +101,7 @@
                 }
             })
         }
+
         changeIcon();
     });
 </script>

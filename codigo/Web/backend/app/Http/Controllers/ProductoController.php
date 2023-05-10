@@ -23,6 +23,13 @@ class ProductoController extends Controller
         ]);
     }
 
+    //Este metodo se llama desde la web y ejecuta el metodo buscarProducto y luego me devuelve la view de producto con los datos
+    public function buscarProductoWeb(Request $request) {
+        $response = $this->buscarProducto($request);
+        $idProducto = $response->getData()->product->idProducto;
+        return $this->detalle($idProducto);
+    }
+
     public function buscarProducto(Request $request) {
         // comprobar si el producto ya existe en la base de datos
         $idProducto = $request->idProducto;
