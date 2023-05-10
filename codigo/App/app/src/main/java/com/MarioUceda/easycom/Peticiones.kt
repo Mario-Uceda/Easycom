@@ -124,4 +124,22 @@ class Peticiones(context: Context?) {
             }
         }
     }
+
+    //Funcion para obtener las notificaciones
+    fun getNotificaciones(callback: (NotiResponse) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var id : String  =""
+            if(sessionManager.isUserLogged()) {
+                id = sessionManager.getUserData().id
+            }
+            val call = getRetrofit().create(APIService::class.java).getNotificaciones(id)
+            val result = call.body()
+            if (call.isSuccessful && result != null && result.status == "ok") {
+                println("result: $result")
+            }
+            withContext(Dispatchers.Main) {
+                callback(result!!)
+            }
+        }
+    }
 }

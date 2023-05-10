@@ -39,24 +39,25 @@ class NotiFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         peticiones = Peticiones(context)
         try{
-            /*peticiones.getNotificaciones() { respuesta ->
-                if (respuesta.historials != null && respuesta.prices != null && respuesta.products != null) {
+            peticiones.getNotificaciones() { respuesta ->
+                if (respuesta.historials != null && respuesta.prices != null && respuesta.products != null && respuesta.notificaciones != null) {
                     historial = respuesta.historials as ArrayList<Historial>
                     productos = respuesta.products as ArrayList<Producto>
                     precios = respuesta.prices as ArrayList<Precio>
+                    notificaciones = respuesta.notificaciones as ArrayList<Notificacion>
 
                     val layoutManager = LinearLayoutManager(context)
-                    productAdapter = ProductListAdapter(productos) { position ->
+                    notiAdapter = NotiListAdapter(productos, notificaciones) { position ->
                         selectedProductIndex = position
                         onItemClick()
                     }
                     // Set up RecyclerView
                     binding.productRecyclerView.layoutManager = layoutManager
-                    binding.productRecyclerView.adapter = productAdapter
+                    binding.productRecyclerView.adapter = notiAdapter
                 } else {
                     Toast.makeText(context,getString(R.string.toast_error_historial), Toast.LENGTH_SHORT).show()
                 }
-            }*/
+            }
         }catch (e: Exception){
             Toast.makeText(context,getString(R.string.toast_error_historial), Toast.LENGTH_SHORT).show()
         }

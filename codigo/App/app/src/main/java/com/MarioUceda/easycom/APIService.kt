@@ -1,9 +1,6 @@
 package com.MarioUceda.easycom
 
-import com.MarioUceda.easycom.classes.AuthResponse
-import com.MarioUceda.easycom.classes.FavResponse
-import com.MarioUceda.easycom.classes.HistResponse
-import com.MarioUceda.easycom.classes.ProdResponse
+import com.MarioUceda.easycom.classes.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -47,4 +44,12 @@ interface APIService {
         @Path("id") idProducto: String,
         @Field("id") idFavorite: String
     ): Response<FavResponse>
+
+    @FormUrlEncoded
+    @POST("notificaciones")
+    suspend fun getNotificaciones(
+        @Field("id_usuario") id: String,
+    ): Response<NotiResponse>
+
+
 }
