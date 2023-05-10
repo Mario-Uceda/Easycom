@@ -38,11 +38,13 @@ class Peticiones(context: Context?) {
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(APIService::class.java).iniciarSesion(email, password)
             val result = call.body()
-            if (call.isSuccessful && result != null && result.status == "ok") {
-                sessionManager.saveUserData(result.user!!)
-            }
             withContext(Dispatchers.Main) {
-                callback(result!!)
+                if (call.isSuccessful && result != null && result.status == "ok") {
+                    println("result: $result")
+                    callback(result)
+                }else{
+                    callback(AuthResponse("error", null))
+                }
             }
         }
     }
@@ -52,11 +54,13 @@ class Peticiones(context: Context?) {
         CoroutineScope(Dispatchers.IO).launch {
             val call =getRetrofit().create(APIService::class.java).registrar(nombre, email, password)
             val result = call.body()
-            if (call.isSuccessful && result != null && result.status == "ok") {
-                sessionManager.saveUserData(result.user!!)
-            }
             withContext(Dispatchers.Main) {
-                callback(result!!)
+                if (call.isSuccessful && result != null && result.status == "ok") {
+                    println("result: $result")
+                    callback(result)
+                }else{
+                    callback(AuthResponse("error", null))
+                }
             }
         }
     }
@@ -82,11 +86,13 @@ class Peticiones(context: Context?) {
             val call = getRetrofit().create(APIService::class.java).buscarProductos(barcode, email, id, idProducto)
             val result = call.body()
 
-            if (call.isSuccessful && result != null && result.status == "ok") {
-                println("result: $result")
-            }
             withContext(Dispatchers.Main) {
-                callback(result!!)
+                if (call.isSuccessful && result != null && result.status == "ok") {
+                    println("result: $result")
+                    callback(result)
+                }else{
+                    callback(ProdResponse("error", null, null))
+                }
             }
 
         }
@@ -101,11 +107,13 @@ class Peticiones(context: Context?) {
             }
             val call = getRetrofit().create(APIService::class.java).getHistorial(id, favorito)
             val result = call.body()
-            if (call.isSuccessful && result != null && result.status == "ok") {
-                println("result: $result")
-            }
             withContext(Dispatchers.Main) {
-                callback(result!!)
+                if (call.isSuccessful && result != null && result.status == "ok") {
+                    println("result: $result")
+                    callback(result)
+                }else{
+                    callback(HistResponse("error", null, null, null))
+                }
             }
         }
     }
@@ -116,12 +124,15 @@ class Peticiones(context: Context?) {
             var idFavorite = itemFavorito.id
             val call = getRetrofit().create(APIService::class.java).changeFav(idProducto, idFavorite)
             val result = call.body()
-            if (call.isSuccessful && result != null && result.status == "ok") {
-                println("result: $result")
-            }
             withContext(Dispatchers.Main) {
-                callback(result!!)
+                if (call.isSuccessful && result != null && result.status == "ok") {
+                    println("result: $result")
+                    callback(result)
+                }else{
+                    callback(FavResponse("error", null))
+                }
             }
+
         }
     }
 
@@ -134,11 +145,14 @@ class Peticiones(context: Context?) {
             }
             val call = getRetrofit().create(APIService::class.java).getNotificaciones(id)
             val result = call.body()
-            if (call.isSuccessful && result != null && result.status == "ok") {
-                println("result: $result")
-            }
+
             withContext(Dispatchers.Main) {
-                callback(result!!)
+                if (call.isSuccessful && result != null && result.status == "ok") {
+                    println("result: $result")
+                    callback(result)
+                }else{
+                    callback(NotiResponse("error", null, null, null,null))
+                }
             }
         }
     }

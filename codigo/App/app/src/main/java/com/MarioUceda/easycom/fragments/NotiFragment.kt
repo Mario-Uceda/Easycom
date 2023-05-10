@@ -40,7 +40,7 @@ class NotiFragment : Fragment() {
         peticiones = Peticiones(context)
         try{
             peticiones.getNotificaciones() { respuesta ->
-                if (respuesta.historials != null && respuesta.prices != null && respuesta.products != null && respuesta.notificaciones != null) {
+                if (respuesta?.historials != null && respuesta?.prices != null && respuesta?.products != null && respuesta?.notificaciones != null) {
                     historial = respuesta.historials as ArrayList<Historial>
                     productos = respuesta.products as ArrayList<Producto>
                     precios = respuesta.prices as ArrayList<Precio>
