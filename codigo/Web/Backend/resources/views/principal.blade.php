@@ -1,6 +1,6 @@
 @extends('layouts.navbar')
 @section('contenidoPrincipal')
-    <link href="{{ asset('css/botones.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <div class="container mt-5">
         <div class="row">
             <div class="d-flex align-items-center justify-content-center">
@@ -22,9 +22,7 @@
                 <button id="wallapop" class="col wallapop">Wallapop</button>
             </div>
         </div>
-        
     </div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
     let buscar = false;
@@ -62,47 +60,42 @@
     }
 
     searchButton.addEventListener('click', function() {
-        changeIcon();
         const inputValue = searchInput.value;
-        if (regexUrl.test(inputValue)) {
-            if (/www.amazon.es/.test(inputValue))
-                alert("Amazon: "+inputValue);
-            else if (/www.mediamarkt.es/.test(inputValue))
-                alert("MediaMarkt: "+inputValue);
-            else if (/es.wallapop.com/.test(inputValue))
-                alert("Wallapop: "+inputValue);
-            else
-                alert("No se ha encontrado la tienda");
-        }
-        else{
-            var parametros;
-            if ({{ Auth::check() }}) {
+        if (inputValue == "") {
+            alert("Introduce un valor");
+        } else { 
+            changeIcon();
+            if (regexUrl.test(inputValue)) {
+                if (/www.amazon.es/.test(inputValue))
+                    alert("Amazon: "+inputValue);
+                else if (/www.mediamarkt.es/.test(inputValue))
+                    alert("MediaMarkt: "+inputValue);
+                else if (/es.wallapop.com/.test(inputValue))
+                    alert("Wallapop: "+inputValue);
+                else
+                    alert("No se ha encontrado la tienda");
+            } else {
                 parametros = {
                     barcode: inputValue,
-                    id: {{ Auth::user()->id }},
-                    email: " {{ Auth::user()->email }}",
+                    @auth
+                        id: {{ auth()->user()->id }},
+                        email: "{{ auth()->user()->email }}",
+                    @endauth
                 };
-            }
-            else{
-                parametros = {
-                    barcode: inputValue
-                };
-            }
-                        
-            axios.post('/buscarProducto', parametros).then(function (response) {
-                // handle success
-                console.log(response);
-                console.log(response.data);
-                if (response.status == "ok") {
-                    alert(response.data);
-                }
-                else{
-                    alert('No se ha encontrado el producto');
-                }
-            })
-        }
 
-        changeIcon();
+                axios.post('/buscarProducto', parametros).then(function (response) {
+                    // handle success
+                    console.log(response);
+                    console.log(response.data);
+                    if (response.status == "ok") {
+                        alert(response.data);
+                    } else {
+                        alert('No se ha encontrado el producto');
+                    }
+                });
+            }
+        }
     });
+
 </script>
 @endsection

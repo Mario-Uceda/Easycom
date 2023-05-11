@@ -3,8 +3,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://kit.fontawesome.com/5526ac0700.js" crossorigin="anonymous"></script>
-    <link href="{{ asset('css/botones.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css">
     <div class="container mt-5">
 
         <div class="row">

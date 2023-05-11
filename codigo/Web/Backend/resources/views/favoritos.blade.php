@@ -1,5 +1,4 @@
 @extends('layouts.navbar')
-<link href="{{ asset('css/tarjetas.css') }}" rel="stylesheet" type="text/css">
 
 <?php
 use App\Models\Historial;
