@@ -7,6 +7,9 @@ import com.MarioUceda.easycom.classes.Notificacion
 import com.MarioUceda.easycom.classes.Producto
 import com.MarioUceda.easycom.databinding.ItemNotiBinding
 import com.bumptech.glide.Glide
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 class NotiListAdapter(private val products: List<Producto>,private val notificaciones: List<Notificacion>, private val onItemClickListener: (Int) -> Unit) :
     RecyclerView.Adapter<NotiListAdapter.ViewHolder>() {
@@ -16,7 +19,7 @@ class NotiListAdapter(private val products: List<Producto>,private val notificac
         fun bind(producto: Producto, notificacion: Notificacion) {
             binding.apply {
                 productName.text = producto.name
-                fechaNotificacion.text = notificacion.modified_at
+                fechaNotificacion.text = getPriceTime(notificacion.updated_at)
                 precioAnterior.text = notificacion.precio_anterior.toString()
                 precioNuevo.text = notificacion.precio_actual.toString()
                 // Cargar la imagen utilizando Glide
@@ -33,6 +36,13 @@ class NotiListAdapter(private val products: List<Producto>,private val notificac
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemNotiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
+    }
+
+    fun getPriceTime(dateString: String): String {
+        val date = LocalDateTime.parse(dateString, DateTimeFormatter.ISO_DATE_TIME)
+        val datePlusTwoHours = date.plus(2, ChronoUnit.HOURS)
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy (HH:mm'h')")
+        return datePlusTwoHours.format(formatter)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

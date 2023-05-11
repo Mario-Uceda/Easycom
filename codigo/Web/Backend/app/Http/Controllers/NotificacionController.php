@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class NotificacionController extends Controller
 {
-    public function notificaciones (Request $request) {
+    public function notificaciones (Request $req) {
         $historial = Historial::select('id', 'id_user', 'id_producto', 'favorito', 'created_at')->where('id_user', $req->id_usuario)->where('favorito', 1)->get();
         $productos = array();
         $precios = array();
@@ -40,6 +40,7 @@ class NotificacionController extends Controller
             $notificacion = new Notificacion($p->id);
             $precio = Precio::select('id')->where('id_producto', $p->id)->latest('created_at')->first();
             $notificacion->id_precio_nuevo = $precio->id;
+            $notificacion->id_precio_anterior = $precio->id;
             $notificacion->save();
         }
     }
