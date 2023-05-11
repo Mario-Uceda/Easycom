@@ -94,7 +94,9 @@
                     }
                 });
             }
+            changeIcon();
         }
+        
     });
 
 </script>

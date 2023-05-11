@@ -132,3 +132,7 @@ input[type="checkbox"] {
 #titulo {
     font-size: 60px;
 }
+#notificacionesLink {
+    text-decoration: none;
+    color: inherit;
+}

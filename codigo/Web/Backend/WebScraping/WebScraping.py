@@ -1,7 +1,19 @@
 #! /usr/bin/python python
 import sys
 import Amazon
+import Mediamarkt
 
-#barcode = '6972453163820'
 barcode = sys.argv[1]
-amazonData = Amazon.get_amazon(barcode)
+productoAmazon, PrecioAmazon = Amazon.get_amazon(barcode)
+productoMediamarkt, PrecioMediamarkt = Mediamarkt.get_mediamarkt(barcode)
+
+if (productoAmazon != ""):
+    print(productoAmazon)
+    print(PrecioAmazon)
+    if (productoMediamarkt != ""):
+        print(PrecioMediamarkt)
+elif (productoMediamarkt != ""):
+    print(productoMediamarkt)
+    print(PrecioMediamarkt)
+else:
+    print("No se ha encontrado el producto")

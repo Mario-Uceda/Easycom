@@ -9,19 +9,19 @@ url_amazon = "https://www.amazon.es/"
 def get_amazon(barcode):
     url_product = get_amazon_id(barcode)
     if url_product != "":
-        get_amazon_data(url_product)
+        return get_amazon_data(url_product)
     else:
-        print("El producto no existe en Amazon")
+        return ""
 
 #Este método se encarga de obtener la url de un producto de Amazon desde su código de barras
 def get_amazon_id(barcode):
+    barcode = barcode.replace(" ", "+")
     url_search = url_amazon + "s?k=" + barcode
     try:
         soup = ua.get_soup(url_search)
         url = soup.select_one('h2 > a')['href']
         return url_amazon + url
     except Exception as e:
-        print(e)
         return ""
 
 #Este método se encarga de obtener los datos y el precio de un producto de Amazon desde su url
@@ -30,10 +30,9 @@ def get_amazon_data(url_product):
         soup = ua.get_soup(url_product)
         producto_amazon = get_product(soup)
         precio_amazon = json.dumps([url_product, "Amazon", get_price(soup)])
-        print(producto_amazon)
-        print(precio_amazon)
+        return (producto_amazon, precio_amazon)
     except Exception as e:
-        print(e)
+        return ""
 
 #Este método se encarga de obtener los datos de un producto de Amazon desde su url
 def get_product(soup):
@@ -55,7 +54,7 @@ def get_product(soup):
         producto = json.dumps([product_name, img, descriptor, specs])
         return producto
     except Exception as e:
-        print(e)
+        return ""
 
 #Este método se encarga de obtener el precio de un producto de Amazon desde su url
 def get_price(soup):

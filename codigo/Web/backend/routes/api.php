@@ -14,7 +14,9 @@ Route::post('register', [UserController::class, 'registerMovil']);
 Route::post('buscarProducto', [ProductoController::class, 'buscarProducto']);
 Route::post('historial', [HistorialController::class, 'getHistorial']);
 Route::post('producto/{id}/favorito', [HistorialController::class, 'cambiarFavorito']);
-Route::get('actualizarPrecios', [PrecioController::class, 'actualizarPrecios']);
+
 Route::post('notificaciones', [NotificacionController::class, 'notificaciones']);
 
 Route::get('crearNotificaciones', [NotificacionController::class, 'crearNotificaciones']);
+Route::get('actualizarNotificaciones', [NotificacionController::class, 'actualizarNotificaciones']);
+Route::get('actualizarPrecios', [PrecioController::class, 'actualizarPrecios']);

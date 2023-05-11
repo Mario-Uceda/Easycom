@@ -81,7 +81,6 @@ class HistorialController extends Controller
     //funcion para cambiar el valor de favorito
     public function cambiarFavorito($id, Request $req)
     {
-
         $idFavorito = $req->id;
         $historial = Historial::where('id', $idFavorito)->where('id_producto',$id)->first();
         $historial->favorito = $historial->favorito == 1 ? 0 : 1;
