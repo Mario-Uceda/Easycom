@@ -11,8 +11,7 @@ def get_amazon(barcode):
     if url_product != "":
         return get_amazon_data(url_product)
     else:
-        return ""
-
+        return ("","")
 #Este método se encarga de obtener la url de un producto de Amazon desde su código de barras
 def get_amazon_id(barcode):
     barcode = barcode.replace(" ", "+")
@@ -32,7 +31,7 @@ def get_amazon_data(url_product):
         precio_amazon = json.dumps([url_product, "Amazon", get_price(soup)])
         return (producto_amazon, precio_amazon)
     except Exception as e:
-        return ""
+        return ("","")
 
 #Este método se encarga de obtener los datos de un producto de Amazon desde su url
 def get_product(soup):

@@ -1,6 +1,8 @@
 import random
 from bs4 import BeautifulSoup as bs
 import requests
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 
 file = 'WebScraping/UserAgents.txt'
 
@@ -19,7 +21,7 @@ def get_soup(url_product):
     #Función que devuelve el objeto soup de un producto
     try:
         response = requests.get(url_product, headers=get_user_agent())
-        soup = bs(response.text, 'html.parser')
+        soup = bs(response.text, 'html.parser', from_encoding="utf-8")
         return soup
     except Exception as e:
         print(e)
