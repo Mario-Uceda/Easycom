@@ -3,7 +3,7 @@ from html.parser import HTMLParser
 import json
 from bs4 import BeautifulSoup as bs
 import UserAgents as ua
-from lxml import etree
+from lxml import html
 
 url_mediamarkt = "https://www.mediamarkt.es/"
 
@@ -46,40 +46,36 @@ def get_mediamarkt_data(url_product):
 # Este método se encarga de obtener los datos de un producto de Mediamarkt desde su url
 def get_product(soup):
     try:
+        tree = html.fromstring(str(soup))
         product_name = soup.select_one('h1').text.strip()
-        print(product_name)
-        img = soup.select_one(
-            '#StyledPdpWrapper > div > div > div > div > div > div > div > div > ul > li:nth-child(1) > div > picture > img')['src']
-        print(str(img))
-        descripcion = soup.select_one(
-            '#acc-content-id-description > div > div > p:nth-child(1)')
-        
-        print(descripcion)
+        img = tree.xpath('//*[@id="StyledPdpWrapper"]/div[1]/div/div[3]/div/div/div[2]/div/div[3]/ul/li[1]/div/picture/img/@src')[0]
+        descripcion = tree.xpath('//*[@id = "acc-content-id-description"]/div/div[1]/p[1]/text()')[0]
         specs = ""
         try:
-            table = soup.select_one('.product-techspecs')
-            rows = table.select('tr')
+            table = soup.select_one('#acc-content-id-features > div > div > table:nth-child(1)')
+            rows = table.find('tbody').find_all('tr')
             for row in rows:
-                cells = row.select('td')
-                attribute = cells[0].text.strip()
-                value = cells[1].text.strip()
+                attribute = row.find('p').text
+                value = row.find_all('td')[1].text
                 specs += attribute + ": " + value + "\n"
         except Exception as e:
             specs = ""
         producto = json.dumps([product_name, img, descripcion, specs])
         return producto
     except Exception as e:
-        print ("Error al obtener los datos del producto: "+str(e))
         return ""
 
 # Este método se encarga de obtener el precio de un producto de Mediamarkt desde su url
 def get_price(soup):
     try:
-        dom = etree.HTML(str(soup))
-        precio = float(dom.xpath(
-            '//*[@id="StyledPdpWrapper"]/div[1]/div/div[4]/div[1]/div/div/div/div/div[2]/span').split(' ')[1])
+        preciodiv = soup.select_one('#StyledPdpWrapper > div:nth-child(1) > div > div:nth-child(4) > div:nth-child(1) > div > div > div > div > div')
+        euros = preciodiv.find('span', {'data-test': 'branded-price-whole-value'}).text.split(' ')[1].replace(',', '.')
+        centimos = preciodiv.find( 'span', {'data-test': 'branded-price-decimal-value'}).text
+        precio = float(euros + centimos)
+        print(precio)
         return precio
     except Exception as e:
+        print ("Error al obtener el precio del producto: "+str(e))
         return ""
         
 # Este método se encarga de actualizar el precio de un producto de Mediamarkt desde su url
