@@ -48,7 +48,7 @@ def get_product(soup):
     try:
         tree = html.fromstring(str(soup))
         product_name = soup.select_one('h1').text.strip()
-        img = tree.xpath('//*[@id="StyledPdpWrapper"]/div[1]/div/div[3]/div/div/div[2]/div/div[3]/ul/li[1]/div/picture/img/@src')[0]
+        img = tree.xpath('//*[@id="StyledPdpWrapper"]/div[1]/div/div[3]/div/div/div[1]/div/div[3]/ul/li[1]/div/picture/img/@src')[0]
         descripcion = tree.xpath('//*[@id = "acc-content-id-description"]/div/div[1]/p[1]/text()')[0]
         specs = ""
         try:
@@ -67,16 +67,10 @@ def get_product(soup):
 
 # Este método se encarga de obtener el precio de un producto de Mediamarkt desde su url
 def get_price(soup):
-    try:
-        preciodiv = soup.select_one('#StyledPdpWrapper > div:nth-child(1) > div > div:nth-child(4) > div:nth-child(1) > div > div > div > div > div')
-        euros = preciodiv.find('span', {'data-test': 'branded-price-whole-value'}).text.split(' ')[1].replace(',', '.')
-        centimos = preciodiv.find( 'span', {'data-test': 'branded-price-decimal-value'}).text
-        precio = float(euros + centimos)
-        print(precio)
-        return precio
-    except Exception as e:
-        print ("Error al obtener el precio del producto: "+str(e))
-        return ""
+    tree = html.fromstring(str(soup))
+    precio = tree.xpath('//*[@id="StyledPdpWrapper"]/div[2]/div[2]/div/div/div[2]/div/div/div[2]/div/span/text()')[0].replace(',', '.').replace('–', '')
+    precio = float(precio)
+    return precio    
         
 # Este método se encarga de actualizar el precio de un producto de Mediamarkt desde su url
 def update_price(url_product):
