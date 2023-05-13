@@ -111,14 +111,14 @@ input[type="checkbox"] {
     text-align: center;
     text-decoration: none;
 }
-.wallapop {
+.ebay {
     display: inline-block;
     padding: 12px 24px;
     border-radius: 25px;
     border-color: black;
     border-style: solid 2px;
-    background-image: url('/images/wallapop.png');
-    background-size: 120%;
+    background-image: url('/images/ebay.png');
+    background-size: 90%;
     background-position: center;
     background-repeat: no-repeat;
     background-color: white;

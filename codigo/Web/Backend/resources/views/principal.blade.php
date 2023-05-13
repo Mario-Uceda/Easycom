@@ -19,7 +19,7 @@
             <div class="text-center mt-5">
                 <button id="amazon" class="col amazon">Amazon</button>
                 <button id="mediamarkt" class="col mediamarkt">MediaMarkt</button>
-                <button id="wallapop" class="col wallapop">Wallapop</button>
+                <button id="ebay" class="col ebay">Ebay</button>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
     const spinner = document.querySelector('.spinner-border');
     const amazon = document.getElementById('amazon');
     const mediamarkt = document.getElementById('mediamarkt');
-    const wallapop = document.getElementById('wallapop');
+    const ebay = document.getElementById('ebay');
     const searchButton = document.getElementById('search-button');
     const searchInput = document.getElementById('search-input');
     const regexUrl = /^(http|https):\/\/[^ "]+$/;
@@ -41,8 +41,8 @@
     mediamarkt.addEventListener('click', function() {
         window.open('https://www.mediamarkt.es/', '_blank');
     });
-    wallapop.addEventListener('click', function() {
-        window.open('https://es.wallapop.com/', '_blank');
+    ebay.addEventListener('click', function() {
+        window.open('https://www.ebay.es/', '_blank');
     });
 
     //Funcion para cambiar el icono de busqueda por el spinner y viceversa
@@ -60,43 +60,28 @@
     }
 
     searchButton.addEventListener('click', function() {
+        changeIcon();
         const inputValue = searchInput.value;
         if (inputValue == "") {
             alert("Introduce un valor");
         } else { 
-            changeIcon();
-            if (regexUrl.test(inputValue)) {
-                if (/www.amazon.es/.test(inputValue))
-                    alert("Amazon: "+inputValue);
-                else if (/www.mediamarkt.es/.test(inputValue))
-                    alert("MediaMarkt: "+inputValue);
-                else if (/es.wallapop.com/.test(inputValue))
-                    alert("Wallapop: "+inputValue);
-                else
-                    alert("No se ha encontrado la tienda");
-            } else {
-                parametros = {
-                    barcode: inputValue,
-                    @auth
-                        id: {{ auth()->user()->id }},
-                        email: "{{ auth()->user()->email }}",
-                    @endauth
-                };
+            parametros = {
+                barcode: inputValue,
+                @auth
+                    id: {{ auth()->user()->id }},
+                    email: "{{ auth()->user()->email }}",
+                @endauth
+            };
 
-                axios.post('/buscarProducto', parametros).then(function (response) {
-                    // handle success
-                    console.log(response);
-                    console.log(response.data);
-                    if (response.status == "ok") {
-                        alert(response.data);
-                    } else {
-                        alert('No se ha encontrado el producto');
-                    }
-                });
-            }
-            changeIcon();
-        }
-        
+            axios.post('/buscarProducto', parametros).then(function (response) {
+                if (response.data.status == "ok") {
+                    window.location.href = "/detalle/"+response.data.product.id;
+                } else {
+                    alert('No se ha encontrado el producto');
+                    changeIcon();
+                }
+            });
+        }        
     });
 
 </script>

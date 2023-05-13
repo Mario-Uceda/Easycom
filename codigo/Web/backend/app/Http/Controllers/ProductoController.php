@@ -44,7 +44,6 @@ class ProductoController extends Controller
             ]);
         }else{
             $barcode = $request->barcode;
-            $view = $request->view;
             $producto = Producto::where('barcode', $barcode)->select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->first();
             if ($producto == null) { // si no existe, se registra
                 $registro = $this->registrarProducto($barcode);
@@ -56,17 +55,13 @@ class ProductoController extends Controller
                 $precios = $registro['precios'];
                 $producto = $registro['producto'];
             }else { // si existe, se obtiene el precio
-                if ($view == "true") {
-                    $precios = Precio::where('id_producto', $producto->id)->get();
-                }else{
-                    $precios = Precio::select('precios.tienda', 'precios.id', 'precios.id_producto', 'precios.precio', 'precios.url_producto', 'precios.created_at')
-                        ->whereIn('precios.id', function ($query) {
-                            $query->selectRaw('MAX(id)')
-                                ->from('precios')
-                                ->groupBy('tienda');
-                        })
-                        ->get();
-                }
+                $precios = Precio::select('precios.tienda', 'precios.id', 'precios.id_producto', 'precios.precio', 'precios.url_producto', 'precios.created_at')
+                    ->whereIn('precios.id', function ($query) {
+                        $query->selectRaw('MAX(id)')
+                            ->from('precios')
+                            ->groupBy('tienda');
+                    })
+                    ->get();
             }
             // comprobar si el usuario existe
             $idProducto = $producto->id;
@@ -79,14 +74,6 @@ class ProductoController extends Controller
                 $historial = new Historial($idUser, $idProducto, false);
                 $historial->save();
                 $historial = Historial::where('id_user', $idUser)->where('id_producto', $idProducto)->first();
-            }
-
-            if($request->view == "true"){
-                return view('producto', [
-                    'favorito' => $historial,
-                    'producto' => $producto,
-                    'precios' => $precios
-                ]);
             }
 
             // se devuelve el producto y el precio
