@@ -1,6 +1,5 @@
 #! /usr/bin/python python
 import json
-from bs4 import BeautifulSoup as bs
 import UserAgents as ua
 
 url_amazon = "https://www.amazon.es/"
@@ -36,17 +35,17 @@ def get_amazon_data(url_product):
 #Este método se encarga de obtener los datos de un producto de Amazon desde su url
 def get_product(soup):
     try:
-        product_name = soup.select_one('#productTitle').text
+        product_name = soup.select_one('#productTitle').text.replace("  ", "")
         img = soup.select_one("#imgTagWrapperId img")['src']
-        descriptor = soup.select_one("#feature-bullets > ul > li").text
+        descriptor = soup.select_one("#feature-bullets > ul > li").text.replace("  ", "")
         specs = ""
         try:
             table = soup.select_one("#productDetails_techSpec_section_1")
             rows = table.select("tr")
             for row in rows:
                 cells = row.select("td, th")
-                attribute = cells[0].text
-                value = cells[1].text
+                attribute = cells[0].text.replace("  ", "")
+                value = cells[1].text.replace("  ", "")
                 specs += attribute + ": " + value + "\n"
         except Exception as e:
             specs = ""

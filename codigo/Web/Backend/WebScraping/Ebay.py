@@ -1,9 +1,6 @@
 #! /usr/bin/python python
-from html.parser import HTMLParser
 import json
-from bs4 import BeautifulSoup as bs
 import UserAgents as ua
-from lxml import html
 
 url_ebay = "https://www.ebay.es/"
 
@@ -26,8 +23,7 @@ def get_ebay_data(url_product):
         soup = ua.get_soup(url_product)
         if soup == "":
             return ("")
-        precio_ebay = json.dumps(
-            [url_product, "ebay", get_price(soup)])
+        precio_ebay = json.dumps([url_product, "Ebay", get_price(soup)])
         return (precio_ebay)
     except Exception as e:
         return ("")
@@ -35,12 +31,12 @@ def get_ebay_data(url_product):
 # Este método se encarga de obtener el precio de todos los producto encontrados de ebay desde la url de búsqueda y devuelve el precio más bajo
 def get_price(soup):
     try:
-        preciominimo = 50000000000
+        preciominimo = ""
         productos = soup.select('#srp-river-results > ul > li.s-item')
         for producto in productos:
             precio = producto.select('span.s-item__price')[0].text.split(' a ')[0].replace(' EUR', '').replace('.', '').replace(',', '.')
             precio = float(precio)
-            if precio < preciominimo and precio >0:
+            if (preciominimo == "") or (precio < preciominimo and precio > 0):
                 preciominimo = precio
         return preciominimo
     except Exception as e:

@@ -1,7 +1,5 @@
 #! /usr/bin/python python
-from html.parser import HTMLParser
 import json
-from bs4 import BeautifulSoup as bs
 import UserAgents as ua
 from lxml import html
 

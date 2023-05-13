@@ -3,58 +3,35 @@ import sys
 import Amazon
 import Mediamarkt
 import Ebay
+import json
 
 barcode = sys.argv[1]
-productoAmazon, PrecioAmazon = '',''
-contador = 0
-while (not productoAmazon or not PrecioAmazon) and contador < 5:
-    proAmazon, preAmazon = Amazon.get_amazon(barcode)
-    if (productoAmazon == "" and proAmazon != ""):
-        productoAmazon = proAmazon
-    if (PrecioAmazon == "" and preAmazon != ""):
-        PrecioAmazon = preAmazon
-    contador += 1
-contador = 0
-productoMediamarkt, PrecioMediamarkt = '',''
-while (not productoMediamarkt or not PrecioMediamarkt) and contador < 5:
-    proMediamarkt, preMediamarkt = Mediamarkt.get_mediamarkt(barcode)
-    if (productoMediamarkt == "" and proMediamarkt != ""):
-        productoMediamarkt = proMediamarkt
-    if (PrecioMediamarkt == "" and preMediamarkt != ""):
-        PrecioMediamarkt = preMediamarkt
-    contador += 1
-PrecioEbay = Ebay.get_ebay(barcode)
+metodo = sys.argv[2] if len(sys.argv) > 2 else ""
 
-if (productoAmazon != ""):
-    print("Producto Amazon")
-    print('----------------------------------------')
-    print(productoAmazon)
-    print('----------------------------------------')
-    print('Precio Amazon')
-    print('----------------------------------------')
-    print(PrecioAmazon)
-    print('----------------------------------------')
-    if (PrecioMediamarkt != ""):
-        print("Precio Mediamarkt")
-        print('----------------------------------------')
-        print(PrecioMediamarkt)
-        print('----------------------------------------')
-    if (PrecioEbay != ""):
-        print("Precio Ebay")
-        print('----------------------------------------')
-        print(PrecioEbay)
-elif (productoMediamarkt != ""):
-    print("Producto Mediamarkt")
-    print('----------------------------------------')
-    print(productoMediamarkt)
-    print('----------------------------------------')
-    print('Precio Mediamarkt')
-    print('----------------------------------------')
-    print(PrecioMediamarkt)
-    print('----------------------------------------')
-    if (PrecioEbay != ""):
-        print("Precio Ebay")
-        print('----------------------------------------')
-        print(PrecioEbay)
+
+
+websites = {
+    "Amazon": Amazon.get_amazon,
+    "Mediamarkt": Mediamarkt.get_mediamarkt,
+    "Ebay": Ebay.get_ebay
+}
+
+
+def scrape_websites(barcode):
+    results = {}
+    for website, scraper in websites.items():
+        for i in range(5):
+            data = scraper(barcode)
+            if data:
+                if isinstance(data, tuple):
+                    product, price = data
+                    results[website] = json.dumps({"product": product, "price": price})
+                else:
+                    results[website] = json.dumps({"price": data})
+                break
+    return json.dumps(results)
+
+if (metodo == ""):
+    amazonData = Amazon.get_amazon(barcode)
 else:
-    print("No se ha encontrado el producto")
+    print(scrape_websites(barcode))

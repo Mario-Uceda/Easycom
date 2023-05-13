@@ -20,3 +20,4 @@ Route::post('notificaciones', [NotificacionController::class, 'notificaciones'])
 Route::get('crearNotificaciones', [NotificacionController::class, 'crearNotificaciones']);
 Route::get('actualizarNotificaciones', [NotificacionController::class, 'actualizarNotificaciones']);
 Route::get('actualizarPrecios', [PrecioController::class, 'actualizarPrecios']);
+Route::get('testProductos', [ProductoController::class, 'testProductos']);
