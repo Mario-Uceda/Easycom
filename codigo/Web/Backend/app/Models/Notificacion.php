@@ -12,31 +12,38 @@ class Notificacion extends Model
     protected $table = 'notificaciones';
 
     //constructor con parametros
-    public function __construct($id_producto = null, $precio_nuevo = null, $precio_anterior = null)
+    public function __construct($id_producto = null, $precio_minimo = null, $precio_actual = null)
     {
         $this->id_producto = $id_producto;
-        $this->id_precio_nuevo = $precio_nuevo;
-        $this->id_precio_anterior = $precio_anterior;
+        $this->id_precio_minimo = $precio_minimo;
+        $this->id_precio_actual = $precio_actual;
     }
 
     protected $fillable = [
         'id_producto',
-        'id_precio_nuevo',
-        'id_precio_anterior'
+        'id_precio_minimo',
+        'id_precio_actual'
     ];
 
     //get notificacion by id_producto
     public function getNotificacionByIdProducto($id_producto)
     {
-        $notificacion = Notificacion::select('id', 'id_producto', 'id_precio_nuevo', 'id_precio_anterior', 'updated_at')->where('id_producto', $id_producto)->latest('created_at')->first();
-        //obtengo el valor de precio nuevo y precio anterior
-        $precio_nuevo = Precio::select('precio')->where('id', $notificacion->id_precio_nuevo)->first();
-        $precio_anterior = Precio::select('precio')->where('id', $notificacion->id_precio_anterior)->first();
-        $notificacion->precio_nuevo = $precio_nuevo->precio;
-        $notificacion->precio_anterior = $precio_anterior->precio;
-        //devuelvo el objeto notificacion quitando los id de precio nuevo y precio anterior
-        unset($notificacion->id_precio_nuevo);
-        unset($notificacion->id_precio_anterior);
+        $notificacion = Notificacion::select('id', 'id_producto', 'id_precio_minimo', 'id_precio_actual', 'updated_at')->where('id_producto', $id_producto)->latest('created_at')->first();
+        //obtengo el valor de precio minimo y precio actual
+        if ($notificacion == null) {
+            $notificacion = new Notificacion($id_producto, 0, 0);
+            $notificacion->precio_minimo = 0;
+            $notificacion->precio_actual = 0;
+            $notificacion->updated_at = null;
+        }else{
+            $precio_minimo = Precio::select('precio')->where('id', $notificacion->id_precio_minimo)->first();
+            $precio_actual = Precio::select('precio')->where('id', $notificacion->id_precio_actual)->first();
+            $notificacion->precio_minimo = $precio_minimo->precio;
+            $notificacion->precio_actual = $precio_actual->precio;
+        }
+        //devuelvo el objeto notificacion quitando los id de precio minimo y precio actual
+        unset($notificacion->id_precio_minimo);
+        unset($notificacion->id_precio_actual);
         return $notificacion;
     }
 

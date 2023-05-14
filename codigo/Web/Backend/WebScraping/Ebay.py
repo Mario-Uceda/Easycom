@@ -14,7 +14,7 @@ def get_ebay(barcode):
 # Este método se encarga de obtener la url de un producto de ebay desde su código de barras
 def get_ebay_id(barcode):
     barcode = barcode.replace(" ", "+")
-    url_search = url_ebay + "sch/i.html?_from=R40&_nkw=" + barcode + '&_sacat=0&LH_BIN=1&rt=nc&LH_PrefLoc=1'
+    url_search = url_ebay + "sch/i.html?_nkw=" + barcode
     return url_search
 
 # Este método se encarga de obtener los datos y el precio de un producto de ebay desde su url

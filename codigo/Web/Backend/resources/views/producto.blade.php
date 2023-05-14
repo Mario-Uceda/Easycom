@@ -23,6 +23,8 @@
                 @endif
             @endforeach
         ];
+    </script>
+    <script>
         const fecha_amazon = [
             @foreach ($precios as $precio)
                 @if ($precio['tienda'] === 'Amazon')
@@ -44,6 +46,8 @@
                 @endif
             @endforeach
         ];
+    </script>
+    <script>
         const url_amazon = [
             @foreach ($precios as $precio)
                 @if ($precio['tienda'] === 'Amazon')
@@ -228,8 +232,6 @@
         Grafica de precios
     -->
     <script src='https://cdn.plot.ly/plotly-2.20.0.min.js'></script>
-    
-    
 
     <script>
         

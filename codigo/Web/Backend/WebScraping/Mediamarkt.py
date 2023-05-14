@@ -76,6 +76,6 @@ def update_price(url_product):
         soup = ua.get_soup(url_product)
         if soup == "":
             return ("")
-        print(get_price(soup))
+        return get_price(soup)
     except Exception as e:
         return ("")

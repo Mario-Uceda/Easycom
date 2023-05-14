@@ -51,11 +51,11 @@ foreach ($notificaciones as $notificacion) {
                                         <div class="row justify-content-center">
                                             <div class="col-6">
                                                 <p class="card-text textoTarjeta">Precio actual</p>
-                                                <p class="card-text textoTarjeta">{{ $notificaciones[$i]->precio_nuevo }}</p>
+                                                <p class="card-text textoTarjeta">{{ $notificaciones[$i]->precio_actual }} €</p>
                                             </div>
                                             <div class="col-6">
-                                                <p class="card-text textoTarjeta">Precio anterior</p>
-                                                <p class="card-text textoTarjeta">{{ $notificaciones[$i]->precio_anterior }}</p>
+                                                <p class="card-text textoTarjeta">Precio mínimo</p>
+                                                <p class="card-text textoTarjeta">{{ $notificaciones[$i]->precio_minimo }}€</p>
                                             </div>
                                         </div>
                                     </div>

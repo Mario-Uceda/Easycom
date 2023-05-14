@@ -6,20 +6,16 @@ import Ebay
 import json
 
 barcode = sys.argv[1]
-metodo = sys.argv[2] if len(sys.argv) > 2 else ""
 
-
-
-websites = {
+tiendas = {
     "Amazon": Amazon.get_amazon,
     "Mediamarkt": Mediamarkt.get_mediamarkt,
     "Ebay": Ebay.get_ebay
 }
 
-
 def scrape_websites(barcode):
     results = {}
-    for website, scraper in websites.items():
+    for website, scraper in tiendas.items():
         for i in range(5):
             data = scraper(barcode)
             if data:
@@ -31,7 +27,4 @@ def scrape_websites(barcode):
                 break
     return json.dumps(results)
 
-if (metodo == ""):
-    amazonData = Amazon.get_amazon(barcode)
-else:
-    print(scrape_websites(barcode))
+print(scrape_websites(barcode))

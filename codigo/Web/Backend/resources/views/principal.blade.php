@@ -9,7 +9,7 @@
             </div>
 
             <div class="form-outline my-5 px-5 col-9 mx-auto d-flex align-items-stretch">
-                <input type="search" id="search-input" class="form-control text-center" placeholder="Introduce el url, nombre o código de barras del producto" aria-label="Search" />
+                <input type="search" id="search-input" class="form-control text-center" placeholder="Introduce el nombre o el código de barras del producto" aria-label="Search" />
                 <button id="search-button" type="button" class="btn btn-primary" style="height: 100%">
                     <i class="fas fa-search"></i>
                     <i class="spinner-border spinner-border-sm d-none"></i>

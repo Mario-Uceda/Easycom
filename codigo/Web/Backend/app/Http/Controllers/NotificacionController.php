@@ -7,6 +7,7 @@ use App\Models\Notificacion;
 use App\Models\Precio;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NotificacionController extends Controller
 {
@@ -54,29 +55,71 @@ class NotificacionController extends Controller
     }
 
 
+
     public function crearNotificaciones() {
         $productos = Producto::select('id')->get();
         foreach ($productos as $p) {
-            $notificacion = new Notificacion($p->id);
-            $precio = Precio::select('id')->where('id_producto', $p->id)->latest('created_at')->first();
-            $notificacion->id_precio_nuevo = $precio->id;
-            $notificacion->id_precio_anterior = $precio->id;
-            $notificacion->save();
+            if (Notificacion::where('id_producto', $p->id)->count() == 0) {
+                $notificacion = new Notificacion($p->id);
+                $precioMinimo = Precio::select('id', 'precio', \DB::raw('MIN(precio) as precio_minimo'))
+                    ->where('id_producto', $p->id)
+                    ->where('tienda', '!=', 'Ebay')
+                    ->groupBy('id', 'precio')
+                    ->orderBy('precio', 'asc')
+                    ->first();
+                if ($precioMinimo != null) {
+                    $notificacion->id_precio_minimo = $precioMinimo->id;
+                    $preciosActuales = Precio::whereIn('id', function ($query) use ($p) {
+                        $query->selectRaw('MAX(id)')
+                            ->from('precios')
+                            ->where('id_producto', $p->id)
+                            ->where('tienda', '!=', 'Ebay')
+                            ->groupBy('tienda');
+                    })->get();
+                    $idMinimo = 0;
+                    $pMinimo = 0;
+                    foreach ($preciosActuales as $pa) {
+                        if ($pMinimo == 0 || $pa->precio < $pMinimo) {
+                            $pMinimo = $pa->precio;
+                            $idMinimo = $pa->id;
+                        }
+                    }
+                    $notificacion->id_precio_actual = $idMinimo;
+                    $notificacion->save();
+                }
+            }
         }
     }
 
     //metodo para actualizar las notificaciones
     public function actualizarNotificaciones() {
-        $productos = Producto::select('id')->get();
-        foreach ($productos as $p) {
-            $notificacion = Notificacion::select('id_precio_nuevo')->where('id_producto', $p->id)->first();
-            $precioGuardado = Precio::select('id','precio')->where('id', $notificacion->id_precio_nuevo)->first();
-            $ultimoPrecio = Precio::where('id_producto', $p->id)->latest('created_at')->first();
-            if ($precioGuardado->id != $ultimoPrecio->id && $precioGuardado->precio < $ultimoPrecio->precio) {
-                $notificacion->id_precio_anterior = $notificacion->id_precio_nuevo;
-                $notificacion->id_precio_nuevo = $ultimoPrecio->id;
-                $notificacion->save();
+        $this->crearNotificaciones();
+        $notificaciones = Notificacion::get();
+        foreach ($notificaciones as $n) {
+            $preciosActuales = Precio::whereIn('id', function ($query) use ($n) {
+                $query->selectRaw('MAX(id)')
+                    ->from('precios')
+                    ->where('id_producto', $n->id_producto)
+                    ->where('tienda', '!=', 'Ebay')
+                    ->where('created_at', '>', $n->updated_at)
+                    ->groupBy('tienda');
+            })->get();
+
+            $idMinimo = 0;
+            $pMinimo = 0;
+            foreach ($preciosActuales as $pa) {
+                if ($pMinimo == 0 || $pa->precio < $pMinimo) {
+                    $pMinimo = $pa->precio;
+                    $idMinimo = $pa->id;
+                }
             }
+            $n->id_precio_actual = $idMinimo;
+            $minimoHistorico = $n->getNotificacionByIdProducto($n->id_producto)->precio_minimo;
+            //comprobar si el precio minimo ha cambiado
+            if ($pMinimo < $minimoHistorico) {
+                $n->id_precio_minimo = $idMinimo;
+            }
+            $n->save();
         }
     }
 

@@ -6,6 +6,7 @@ use App\Models\Precio;
 use App\Models\Producto;
 use App\Models\User;
 use App\Models\Historial;
+use App\Http\Controllers\NotificacionController;
 use Illuminate\Http\Request;
 use TheSeer\Tokenizer\Exception;
 
@@ -22,13 +23,6 @@ class ProductoController extends Controller
             'producto' => $producto,
             'precios' => $precios
         ]);
-    }
-
-    //Este metodo se llama desde la web y ejecuta el metodo buscarProducto y luego me devuelve la view de producto con los datos
-    public function buscarProductoWeb(Request $request) {
-        $response = $this->buscarProducto($request);
-        $idProducto = $response->getData()->product->idProducto;
-        return $this->detalle($idProducto);
     }
 
     public function buscarProducto(Request $request) {
@@ -75,7 +69,9 @@ class ProductoController extends Controller
                 $historial->save();
                 $historial = Historial::where('id_user', $idUser)->where('id_producto', $idProducto)->first();
             }
-
+            // Creo notificacion
+            $notificacionController = new NotificacionController();
+            $notificacionController->crearNotificaciones();
             // se devuelve el producto y el precio
             return response()->json([
                 'status' => 'ok',
@@ -86,37 +82,10 @@ class ProductoController extends Controller
     }
 
     // Funcion para registrar un producto en la base de datos
-    public function registrarProducto2(string $barcode) {
-        $script_path = '../WebScraping/WebScraping.py';
-        $command = 'python ' . $script_path . ' ' . $barcode . ' 2>&1';
-        exec($command, $output);
-        $producto_amazon = json_decode($output[0], true);
-        $precio_amazon = json_decode($output[1], true);
-        if ($producto_amazon == null || $precio_amazon == null) {
-            return [
-                'status' => 'error',
-            ];
-        }
-        //guardar producto
-        $producto = new Producto($barcode, trim($producto_amazon[0]), trim($producto_amazon[1]), trim($producto_amazon[2]), trim($producto_amazon[3]));
-        $producto->save();
-        $producto = Producto::where('barcode', $barcode)->select('id','barcode', 'nombre', 'url_img', 'descripcion','especificaciones_tecnicas')->first();
-        //guardar precio
-        $precio = new Precio($producto->id, $precio_amazon[2], $precio_amazon[1], $precio_amazon[0]);
-        $precio->save();
-        $precio = Precio::where('id_producto', $producto->id)->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
-        //devolver producto y precio
-        return [
-            'status' => 'ok',
-            'producto' => $producto,
-            'precio' => $precio
-        ];
-    }
-
     public function registrarProducto(string $barcode)
     {
         $script_path = '../WebScraping/WebScraping.py';
-        $command = 'python ' . $script_path . ' "' . $barcode . '" prueba 2>&1';
+        $command = 'python ' . $script_path . ' "' . $barcode . '" 2>&1';
         exec($command, $output);
         $resultado = $this->obtenerResultados($output, $barcode);
         if ($resultado['status'] == 'error') {
@@ -140,29 +109,22 @@ class ProductoController extends Controller
         $precios = [];
         foreach ($listaPrecios as $precio) {
             if ($precio != null) {
-                $precio->id_producto = $producto->id;
-                $precio->save();
-                $precio = Precio::where('id_producto', $producto->id)->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
-                array_push($precios, $precio);
+                if ($precio->precio != "") {
+                    $precio->id_producto = $producto->id;
+                    unset($precio->updated_at);
+                    unset($precio->created_at);
+                    $precio->save();
+                    $precio = Precio::where('id_producto', $producto->id)->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
+                    array_push($precios, $precio);
+                } 
             }
         }
+
         return [
             'status' => 'ok',
             'producto' => $producto,
             'precios' => $precios
         ];
-    }
-
-
-
-
-
-    public function testProductos(Request $request): void {
-        $barcode = $request->barcode;
-        $script_path = '../WebScraping/WebScraping.py';
-        $command = 'python ' . $script_path . ' "' . $barcode . '" prueba 2>&1';
-        exec($command, $output);
-        $this->obtenerResultados($output, $barcode);
     }
     public function obtenerResultados($output, $barcode) {
         try{
