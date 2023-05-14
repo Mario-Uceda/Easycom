@@ -137,7 +137,7 @@
                         android:padding="5dp">
 
                         <ImageButton
-                            android:id="@+id/fnac"
+                            android:id="@+id/mediamarkt"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_weight="0"
@@ -147,10 +147,10 @@
                             android:scaleType="centerInside"
                             android:scaleX="1"
                             android:scaleY="1"
-                            android:src="@drawable/fnac" />
+                            android:src="@drawable/mediamarkt" />
 
                         <TextView
-                            android:id="@+id/precioFnac"
+                            android:id="@+id/precioMediamarkt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -164,7 +164,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/fechaFnac"
+                            android:id="@+id/fechaMediamarkt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -192,19 +192,20 @@
                         android:padding="5dp">
 
                         <ImageButton
-                            android:id="@+id/wallapop"
+                            android:id="@+id/ebay"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_weight="0"
                             android:background="@drawable/btn_1_bg"
                             android:saveEnabled="false"
                             android:scaleType="centerCrop"
+                            android:padding="7dp"
                             android:scaleX="1"
                             android:scaleY="1"
-                            android:src="@drawable/wallapop" />
+                            android:src="@drawable/ebay" />
 
                         <TextView
-                            android:id="@+id/precioWallapop"
+                            android:id="@+id/precioEbay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -218,7 +219,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/fechaWallapop"
+                            android:id="@+id/fechaEbay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="7dp"
     tools:context=".fragments.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -60,7 +61,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/fnac"
+                        android:id="@+id/mediamarkt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
@@ -70,7 +71,7 @@
                         android:scaleType="centerInside"
                         android:scaleX="1"
                         android:scaleY="1"
-                        android:src="@drawable/fnac" />
+                        android:src="@drawable/mediamarkt" />
 
                     <Space
                         android:layout_width="0dp"
@@ -96,16 +97,17 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:id="@+id/wallapop"
+                        android:id="@+id/ebay"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
                         android:background="@drawable/btn_1_bg"
+                        android:padding="7dp"
                         android:saveEnabled="false"
                         android:scaleType="centerCrop"
                         android:scaleX="1"
                         android:scaleY="1"
-                        android:src="@drawable/wallapop" />
+                        android:src="@drawable/ebay" />
                 </LinearLayout>
 
 

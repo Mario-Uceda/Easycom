@@ -41,6 +41,7 @@ class Peticiones(context: Context?) {
             withContext(Dispatchers.Main) {
                 if (call.isSuccessful && result != null && result.status == "ok") {
                     println("result: $result")
+                    sessionManager.saveUserData(result.user!!)
                     callback(result)
                 }else{
                     callback(AuthResponse("error", null))
@@ -57,6 +58,7 @@ class Peticiones(context: Context?) {
             withContext(Dispatchers.Main) {
                 if (call.isSuccessful && result != null && result.status == "ok") {
                     println("result: $result")
+                    sessionManager.saveUserData(result.user!!)
                     callback(result)
                 }else{
                     callback(AuthResponse("error", null))
@@ -91,7 +93,7 @@ class Peticiones(context: Context?) {
                     println("result: $result")
                     callback(result)
                 }else{
-                    callback(ProdResponse("error", null, null))
+                    callback(ProdResponse("error", null, null, null))
                 }
             }
 

@@ -20,8 +20,8 @@ class NotiListAdapter(private val products: List<Producto>,private val notificac
             binding.apply {
                 productName.text = producto.name
                 fechaNotificacion.text = getPriceTime(notificacion.updated_at)
-                precioAnterior.text = notificacion.precio_anterior.toString()
-                precioNuevo.text = notificacion.precio_actual.toString()
+                precioActual.text = notificacion.precio_actual.toString()
+                precioMinimo.text = notificacion.precio_minimo.toString()
                 // Cargar la imagen utilizando Glide
                 Glide.with(binding.root)
                     .load(producto.img)

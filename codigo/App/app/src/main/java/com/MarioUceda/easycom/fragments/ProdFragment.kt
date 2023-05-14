@@ -23,7 +23,7 @@ import java.time.temporal.ChronoUnit
 class ProdFragment : Fragment() {
     private var _binding: FragmentProdBinding? = null
     private val binding get() = _binding!!
-    private lateinit var precio: Precio
+    private lateinit var precios: ArrayList<Precio>
     private lateinit var producto: Producto
     private lateinit var favorito: Historial
     private lateinit var peticiones : Peticiones
@@ -38,7 +38,7 @@ class ProdFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         peticiones = Peticiones(context)
         producto = arguments?.getSerializable("producto") as Producto
-        precio = arguments?.getSerializable("precio") as Precio
+        precios = arguments?.getSerializable("precio") as ArrayList<Precio>
         favorito = arguments?.getSerializable("favorito") as Historial
 
         binding.titulo.text = producto.name
@@ -46,12 +46,29 @@ class ProdFragment : Fragment() {
         binding.descripcion.text = producto.description
         binding.especificaciones.text = producto.especificaciones
         binding.id.text = producto.id
-        binding.precioAmazon.text = precio.precio.toString()+"€"
-        binding.fechaAmazon.text = getPriceTime(precio.created_at)
+        binding.precioAmazon.text = "--€"
+        binding.fechaAmazon.text = "--"
+        binding.precioMediamarkt.text = "--€"
+        binding.fechaMediamarkt.text = "--"
+        binding.precioEbay.text = "--€"
+        binding.fechaEbay.text = "--"
+        for(p in precios){
+            if(p.tienda == "Amazon"){
+                binding.precioAmazon.text = p.precio.toString()+"€"
+                binding.fechaAmazon.text = getPriceTime(p.created_at)
+                binding.amazon.setOnClickListener { abrirPagina(p.urlProducto) }
+            }else if (p.tienda == "MediaMarkt"){
+                binding.precioMediamarkt.text = p.precio.toString()+"€"
+                binding.fechaMediamarkt.text = getPriceTime(p.created_at)
+                binding.mediamarkt.setOnClickListener { abrirPagina(p.urlProducto) }
+            }else if (p.tienda == "Ebay"){
+                binding.precioEbay.text = p.precio.toString()+"€"
+                binding.fechaEbay.text = getPriceTime(p.created_at)
+                binding.ebay.setOnClickListener { abrirPagina(p.urlProducto) }
+            }
+        }
         binding.fav.isChecked = favorito.favorito == 1;
-
         binding.fav.setOnClickListener { checkbox() }
-        binding.amazon.setOnClickListener { abrirPagina(precio.urlProducto) }
     }
 
     fun getPriceTime(dateString: String): String {

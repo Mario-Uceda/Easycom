@@ -63,18 +63,18 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/texto_anterior"
+                        android:id="@+id/texto_actual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:justificationMode="inter_word"
                         android:maxLines="2"
-                        android:text="Precio Anterior"
+                        android:text="Precio Actual"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/precio_anterior"
+                        android:id="@+id/precio_actual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10€" />
@@ -87,18 +87,18 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/texto_nuevo"
+                        android:id="@+id/texto_minimo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:justificationMode="inter_word"
                         android:maxLines="2"
-                        android:text="Precio Nuevo"
+                        android:text="Precio Minimo"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/precio_nuevo"
+                        android:id="@+id/precio_minimo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="20€" />

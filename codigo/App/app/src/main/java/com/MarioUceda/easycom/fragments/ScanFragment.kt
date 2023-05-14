@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.MarioUceda.easycom.Peticiones
 import com.MarioUceda.easycom.classes.Precio
 import com.MarioUceda.easycom.R
+import com.MarioUceda.easycom.classes.Historial
 import com.MarioUceda.easycom.classes.Producto
 import com.MarioUceda.easycom.databinding.FragmentScanBinding
 import com.google.zxing.integration.android.IntentIntegrator
@@ -23,7 +24,8 @@ class ScanFragment : Fragment() {
     private lateinit var producto : Producto
     private lateinit var barcode : String
     private lateinit var  peticiones : Peticiones
-    private lateinit var precio : Precio
+    private lateinit var precio : ArrayList<Precio>
+    private lateinit var historial : Historial
 
     private var prodFragment = ProdFragment()
 
@@ -61,9 +63,10 @@ class ScanFragment : Fragment() {
 
                 try {
                     peticiones.buscarProducto(barcode, "") { respuesta ->
-                        if (respuesta.status == "ok" && respuesta.price != null && respuesta.product != null) {
+                        if (respuesta.status == "ok" && respuesta.price != null && respuesta.product != null && respuesta.favorito != null) {
                             precio = respuesta.price
                             producto = respuesta.product
+                            historial = respuesta.favorito
                             verProducto()
                         } else {
                             Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
@@ -80,6 +83,7 @@ class ScanFragment : Fragment() {
         val bundle = Bundle().apply {
             putSerializable("producto", producto)
             putSerializable("precio", precio)
+            putSerializable("favorito", historial)
         }
         prodFragment.arguments = bundle
 

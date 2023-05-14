@@ -34,7 +34,6 @@ class LoginFragment : Fragment() {
             val password = binding.etPassword.text.toString()
             val emailregex = Regex("^[A-Za-z0-9+_.-]+@(.+)$")
             if (email.isEmpty() || password.isEmpty()) { // Comprobar que los campos no estén vacíos
-
                 Toast.makeText(context, getString(R.string.toast_error_campos), Toast.LENGTH_SHORT).show()
             } else if (!emailregex.matches(email)) {// Comprobar que el email sea correcto
                 Toast.makeText(context, getString(R.string.toast_error_email), Toast.LENGTH_SHORT).show()

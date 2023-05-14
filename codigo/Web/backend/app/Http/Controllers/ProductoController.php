@@ -76,7 +76,8 @@ class ProductoController extends Controller
             return response()->json([
                 'status' => 'ok',
                 'product' => $producto,
-                'price' => $precios
+                'price' => $precios,
+                'favorito' => $historial
             ]);
         }
     }

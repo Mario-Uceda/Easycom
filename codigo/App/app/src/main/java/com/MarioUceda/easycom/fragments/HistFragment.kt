@@ -19,7 +19,7 @@ class HistFragment : Fragment() {
     private val binding get() = _binding!!
     private var historial = ArrayList<Historial>()
     private var productos = ArrayList<Producto>()
-    private var precios = ArrayList<Precio>()
+    private var precios = ArrayList<ArrayList<Precio>>()
     private lateinit var productAdapter: ProductListAdapter
     private var selectedProductIndex: Int = -1
     private lateinit var peticiones : Peticiones
@@ -40,7 +40,7 @@ class HistFragment : Fragment() {
                 if (respuesta.status == "ok" && respuesta.historials != null && respuesta.prices != null && respuesta.products != null) {
                     historial = respuesta.historials as ArrayList<Historial>
                     productos = respuesta.products as ArrayList<Producto>
-                    precios = respuesta.prices as ArrayList<Precio>
+                    precios = respuesta.prices as ArrayList<ArrayList<Precio>>
 
                     val layoutManager = LinearLayoutManager(context)
                     productAdapter = ProductListAdapter(productos) { position ->
