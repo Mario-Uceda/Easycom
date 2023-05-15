@@ -40,6 +40,7 @@ class ScanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         peticiones = Peticiones(context)
+        binding.progressBar.visibility = View.GONE
         binding.scan.setOnClickListener {
             initScanner()
         }
@@ -56,23 +57,30 @@ class ScanFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.progressBar.visibility = View.VISIBLE
         val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents != null) {
                 barcode = "${result.contents.toString()}"
-
                 try {
                     peticiones.buscarProducto(barcode, "") { respuesta ->
                         if (respuesta.status == "ok" && respuesta.price != null && respuesta.product != null && respuesta.favorito != null) {
+                            println("\n\n"+respuesta.status+"\n\n")
+                            println("\n\n"+respuesta.product+"\n\n")
+                            println("\n\n"+respuesta.price+"\n\n")
+                            println("\n\n"+respuesta.favorito+"\n\n")
+
                             precio = respuesta.price
                             producto = respuesta.product
                             historial = respuesta.favorito
                             verProducto()
                         } else {
+                            binding.progressBar.visibility = View.GONE
                             Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
                         }
                     }
                 }catch (e: Exception) {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
                 }
             }

@@ -19,7 +19,15 @@ class NotificacionController extends Controller
         foreach ($historial as $h) {
             $id_producto = $h->id_producto;
             $producto = Producto::select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->where('id', $id_producto)->first();
-            $precio = Precio::select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->where('id_producto', $id_producto)->latest('created_at')->first();
+            $precio = Precio::whereIn('id', function ($query) use ($id_producto) {
+                $query->selectRaw('MAX(id)')
+                    ->from('precios')
+                    ->where('id_producto', $id_producto)
+                    ->groupBy('tienda');
+            })
+                ->where('id_producto', $id_producto)
+                ->get(['id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at']);
+
             $notificacion = new Notificacion();
             $notificacion = $notificacion->getNotificacionByIdProducto($id_producto);
             array_push($productos, $producto);

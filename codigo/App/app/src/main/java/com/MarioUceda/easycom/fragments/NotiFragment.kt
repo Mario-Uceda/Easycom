@@ -20,7 +20,7 @@ class NotiFragment : Fragment() {
     private val binding get() = _binding!!
     private var historial = ArrayList<Historial>()
     private var productos = ArrayList<Producto>()
-    private var precios = ArrayList<Precio>()
+    private var precios = ArrayList<ArrayList<Precio>>()
     private var notificaciones = ArrayList<Notificacion>()
     private lateinit var notiAdapter: NotiListAdapter
     private var selectedProductIndex: Int = -1
@@ -37,13 +37,14 @@ class NotiFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressBar.visibility = View.VISIBLE
         peticiones = Peticiones(context)
         try{
             peticiones.getNotificaciones() { respuesta ->
                 if (respuesta?.historials != null && respuesta?.prices != null && respuesta?.products != null && respuesta?.notificaciones != null) {
                     historial = respuesta.historials as ArrayList<Historial>
                     productos = respuesta.products as ArrayList<Producto>
-                    precios = respuesta.prices as ArrayList<Precio>
+                    precios = respuesta.prices as ArrayList<ArrayList<Precio>>
                     notificaciones = respuesta.notificaciones as ArrayList<Notificacion>
 
                     val layoutManager = LinearLayoutManager(context)
@@ -54,6 +55,7 @@ class NotiFragment : Fragment() {
                     // Set up RecyclerView
                     binding.productRecyclerView.layoutManager = layoutManager
                     binding.productRecyclerView.adapter = notiAdapter
+                    binding.progressBar.visibility = View.GONE
                 } else {
                     Toast.makeText(context,getString(R.string.toast_error_historial), Toast.LENGTH_SHORT).show()
                 }
@@ -65,7 +67,6 @@ class NotiFragment : Fragment() {
 
     private fun onItemClick() {
         if (selectedProductIndex >= 0 && selectedProductIndex < productos.size) {
-            val selectedProduct = productos[selectedProductIndex]
             cambiarFragmento(selectedProductIndex)
         }
     }

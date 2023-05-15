@@ -46,17 +46,18 @@ class ProductoController extends Controller
                         'status' => 'error'
                     ]);
                 }
-                $precios = $registro['precios'];
                 $producto = $registro['producto'];
-            }else { // si existe, se obtiene el precio
-                $precios = Precio::select('precios.tienda', 'precios.id', 'precios.id_producto', 'precios.precio', 'precios.url_producto', 'precios.created_at')
-                    ->whereIn('precios.id', function ($query) {
-                        $query->selectRaw('MAX(id)')
-                            ->from('precios')
-                            ->groupBy('tienda');
-                    })
-                    ->get();
             }
+            $id_producto = $producto->id;
+            $precios = Precio::whereIn('id', function ($query) use ($id_producto) {
+                $query->selectRaw('MAX(id)')
+                    ->from('precios')
+                    ->where('id_producto', $id_producto)
+                    ->groupBy('tienda');
+            })
+                ->where('id_producto', $id_producto)
+                ->get(['id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at']);
+            
             // comprobar si el usuario existe
             $idProducto = $producto->id;
             $idUser = $request->id;

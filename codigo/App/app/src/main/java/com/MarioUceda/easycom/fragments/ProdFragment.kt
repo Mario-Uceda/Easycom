@@ -37,9 +37,13 @@ class ProdFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         peticiones = Peticiones(context)
+
         producto = arguments?.getSerializable("producto") as Producto
         precios = arguments?.getSerializable("precio") as ArrayList<Precio>
         favorito = arguments?.getSerializable("favorito") as Historial
+
+        print(precios)
+
 
         binding.titulo.text = producto.name
         Glide.with(this).load(producto.img).into(binding.prodImg)
@@ -57,7 +61,7 @@ class ProdFragment : Fragment() {
                 binding.precioAmazon.text = p.precio.toString()+"€"
                 binding.fechaAmazon.text = getPriceTime(p.created_at)
                 binding.amazon.setOnClickListener { abrirPagina(p.urlProducto) }
-            }else if (p.tienda == "MediaMarkt"){
+            }else if (p.tienda == "Mediamarkt"){
                 binding.precioMediamarkt.text = p.precio.toString()+"€"
                 binding.fechaMediamarkt.text = getPriceTime(p.created_at)
                 binding.mediamarkt.setOnClickListener { abrirPagina(p.urlProducto) }

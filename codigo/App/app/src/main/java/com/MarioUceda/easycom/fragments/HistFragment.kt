@@ -34,6 +34,7 @@ class HistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressBar.visibility = View.VISIBLE
         peticiones = Peticiones(context)
         try{
             peticiones.getHistorial(0) { respuesta ->
@@ -50,6 +51,7 @@ class HistFragment : Fragment() {
                     // Set up RecyclerView
                     binding.productRecyclerView.layoutManager = layoutManager
                     binding.productRecyclerView.adapter = productAdapter
+                    binding.progressBar.visibility = View.GONE
                 } else {
                     Toast.makeText(context,getString(R.string.toast_error_historial), Toast.LENGTH_SHORT).show()
                 }
@@ -61,10 +63,7 @@ class HistFragment : Fragment() {
 
     private fun onItemClick() {
         if (selectedProductIndex >= 0 && selectedProductIndex < productos.size) {
-            val selectedProduct = productos[selectedProductIndex]
-
             cambiarFragmento(selectedProductIndex)
-
         }
     }
 
