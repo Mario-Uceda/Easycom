@@ -12,7 +12,9 @@
     <title>Easycom</title>
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <div class="container-fluid p-0">
+      <!-- Inicio Navbar -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">
@@ -28,6 +30,7 @@
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/">Inicio</a>
               </li>
+              <!-- Si el usuario esta logeado -->
 @auth
               <li class="nav-item">
                 <a class="nav-link" href="/historial">Historial</a>
@@ -47,6 +50,7 @@
                 </form>
               </li>
             </ul>
+            <!-- Si el usuario no está logueado -->
 @else
             </ul>  
             <ul class="navbar-nav ml-auto">
@@ -67,10 +71,13 @@
         {{ session('status') }}
     @endif
 
+    <!-- Fin Navbar -->
+    
+    <!-- Inicio Contenido Principal -->
+    
     @yield('contenidoPrincipal')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-
+    
+    <!-- Fin Contenido Principal -->
   </body>
 </html>
 

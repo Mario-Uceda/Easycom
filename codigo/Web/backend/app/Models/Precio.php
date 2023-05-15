@@ -10,7 +10,6 @@ class Precio extends Model
 {
     use HasFactory, SoftDeletes;
 
-    //constructor con parametros
     public function __construct($id_producto = null, $precio = null, $tienda = null, $url_producto = null)
     {
         $this->id_producto = $id_producto;
@@ -29,11 +28,4 @@ class Precio extends Model
         'url_producto',
     ];
 
-    /**
-     * Get the producto that owns the precio.
-     */
-    public function producto()
-    {
-        return $this->belongsTo(Producto::class, 'id_producto');
-    }
 }
