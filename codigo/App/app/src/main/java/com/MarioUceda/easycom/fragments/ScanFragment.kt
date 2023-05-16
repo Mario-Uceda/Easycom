@@ -25,7 +25,7 @@ class ScanFragment : Fragment() {
     private lateinit var barcode : String
     private lateinit var  peticiones : Peticiones
     private lateinit var precio : ArrayList<Precio>
-    private lateinit var historial : Historial
+    private var historial = null as Historial?
 
     private var prodFragment = ProdFragment()
 
@@ -62,21 +62,21 @@ class ScanFragment : Fragment() {
             // Comprobar si el resultado es nulo
             if (result.contents != null) {
                 barcode = result.contents.toString()
-
                 binding.progressBar.visibility = View.VISIBLE
                 try {
                     peticiones.buscarProducto(barcode, "") { respuesta ->
                         if (respuesta.status == "ok" && respuesta.price != null && respuesta.product != null && respuesta.favorito != null) {
-                            println("\n\n"+respuesta.status+"\n\n")
-                            println("\n\n"+respuesta.product+"\n\n")
-                            println("\n\n"+respuesta.price+"\n\n")
-                            println("\n\n"+respuesta.favorito+"\n\n")
-
                             precio = respuesta.price
                             producto = respuesta.product
                             historial = respuesta.favorito
                             verProducto()
-                        } else {
+                        }else if(respuesta.status == "ok" && respuesta.price != null && respuesta.product != null) {
+                            precio = respuesta.price
+                            producto = respuesta.product
+                            verProducto()
+                            verProducto()
+                        }else{
+                            println("\n\n\n ERROR \n\n\n")
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(context,getString(R.string.toast_error_producto),Toast.LENGTH_SHORT).show()
                         }

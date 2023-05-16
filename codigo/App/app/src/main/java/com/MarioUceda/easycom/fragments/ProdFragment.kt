@@ -35,21 +35,18 @@ class ProdFragment : Fragment() {
         _binding = FragmentProdBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         peticiones = Peticiones(context)
 
         producto = arguments?.getSerializable("producto") as Producto
         precios = arguments?.getSerializable("precio") as ArrayList<Precio>
-        favorito = arguments?.getSerializable("favorito") as Historial
-
-        print(precios)
 
 
         binding.titulo.text = producto.name
         Glide.with(this).load(producto.img).into(binding.prodImg)
         binding.descripcion.text = producto.description
         binding.especificaciones.text = producto.especificaciones
-        binding.id.text = producto.id
         binding.precioAmazon.text = "--€"
         binding.fechaAmazon.text = "--"
         binding.precioMediamarkt.text = "--€"
@@ -71,8 +68,15 @@ class ProdFragment : Fragment() {
                 binding.ebay.setOnClickListener { abrirPagina(p.urlProducto) }
             }
         }
-        binding.fav.isChecked = favorito.favorito == 1;
-        binding.fav.setOnClickListener { checkbox() }
+        var historial = arguments?.getSerializable("favorito")
+        if (historial == null) {
+            binding.fav.visibility = View.GONE
+        } else {
+            favorito = arguments?.getSerializable("favorito") as Historial
+            binding.fav.isChecked = favorito!!.favorito == 1;
+            binding.fav.setOnClickListener { checkbox() }
+        }
+
     }
 
     fun getPriceTime(dateString: String): String {
@@ -87,7 +91,7 @@ class ProdFragment : Fragment() {
         startActivity(intent)
     }
     fun checkbox (){
-        peticiones.cambiarFavorito(favorito){ respuesta ->
+        peticiones.cambiarFavorito(favorito!!){ respuesta ->
             if (respuesta.historial == null) {
                 Toast.makeText(context,getString(R.string.toast_error_favoritos), Toast.LENGTH_SHORT).show()
             }
