@@ -57,11 +57,13 @@ class ScanFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.progressBar.visibility = View.VISIBLE
         val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
+            // Comprobar si el resultado es nulo
             if (result.contents != null) {
-                barcode = "${result.contents.toString()}"
+                barcode = result.contents.toString()
+
+                binding.progressBar.visibility = View.VISIBLE
                 try {
                     peticiones.buscarProducto(barcode, "") { respuesta ->
                         if (respuesta.status == "ok" && respuesta.price != null && respuesta.product != null && respuesta.favorito != null) {
