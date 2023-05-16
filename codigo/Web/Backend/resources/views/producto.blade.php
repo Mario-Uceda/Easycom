@@ -101,6 +101,7 @@
             <div class="col-11">
                 <h1 class="mx-auto text-justify m-1">{{ $producto['nombre'] }}</h1>
             </div>
+            @auth
             <div class="col custom-checkbox">
                 <input type="checkbox" id="id-of-input"/>
                 <label for="id-of-input">
@@ -108,6 +109,7 @@
                     <i class="fa-solid fa-heart"></i>
                 </label>
             </div>
+            @endauth
         </div>
 
         <div class="row mt-5">
@@ -135,7 +137,7 @@
                 </div>
                 <img src="{{$producto['url_img']}}" class=" mt-5 mx-auto d-block" alt="Imagen del producto">
              </div>
-            
+
             <div class="col-8">
                 <h2 class="text-center">Historial de Precios</h2>
                 <div id='grafico'></div>
@@ -145,12 +147,13 @@
             <H2>Descripción</H2>
             <p>{{$producto['descripcion']}}</p>
             <h2>Especificaciones técnicas</h2>
-            <table class="table table-striped table-bordered" id='especificaciones'></table>        
+            <table class="table table-striped table-bordered" id='especificaciones'></table>
         </div>
     </div>
     <!--
         favorito
     -->
+    @auth
     <script>
         function cambiarFavorito(favorito){
             const checkbox = document.getElementById('id-of-input');
@@ -170,10 +173,9 @@
 
     <script>
         const productoId = {{ $producto['id'] }};
-        const usuarioId = {{ $favorito['id_user'] }};
         const favorito = {{ $favorito['favorito'] }};
         const historialId = {{ $favorito['id'] }};
-        const checkbox = document.getElementById('id-of-input'); 
+        const checkbox = document.getElementById('id-of-input');
         cambiarFavorito(favorito);
 
         checkbox.addEventListener('change', function() {
@@ -190,9 +192,9 @@
             .catch(error => {console.error('Error:', error);});
             favorito = cambiarFavorito(fav);
         });
-        
-    </script>
 
+    </script>
+    @endauth
     <!--
         Precios
     -->
@@ -224,7 +226,7 @@
             document.getElementById('ultimoPrecioE').innerHTML=PrecioE+'€';
             document.getElementById('ultimaFechaE').innerHTML=FechaE;
             document.getElementById('ultimaHoraE').innerHTML=HoraE;
-        }   
+        }
     </script>
 
 
@@ -234,7 +236,7 @@
     <script src='https://cdn.plot.ly/plotly-2.20.0.min.js'></script>
 
     <script>
-        
+
         amazon = {
             type: 'scatter',
             x: fecha_amazon,
@@ -294,7 +296,7 @@
             tr.appendChild(td2);
             table.appendChild(tr);
         }
-    
+
         document.getElementById('especificaciones').appendChild(table);
 
     </script>

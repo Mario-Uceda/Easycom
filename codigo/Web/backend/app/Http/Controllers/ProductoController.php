@@ -17,6 +17,21 @@ class ProductoController extends Controller
     {
         $producto = Producto::where('id',$id)->first();
         $precios = Precio::where('id_producto', $id)->get();
+        //Si el usuario esta logeado, se busca si el producto esta en favoritos
+        if (auth()->user()) {
+            $historial = Historial::where('id_producto', $id)->where('id_user', auth()->user()->id)->first();
+            return view('producto', [
+                'favorito' => $historial,
+                'producto' => $producto,
+                'precios' => $precios
+            ]);
+        }else{
+            return view('producto', [
+                'producto' => $producto,
+                'precios' => $precios,
+                'favorito' => null,
+            ]);
+        }
         $historial = Historial::where('id_producto', $id)->where('id_user', auth()->user()->id)->first();
         return view('producto', [
             'favorito' => $historial,
@@ -57,7 +72,7 @@ class ProductoController extends Controller
             })
                 ->where('id_producto', $id_producto)
                 ->get(['id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at']);
-            
+
             // comprobar si el usuario existe
             $idProducto = $producto->id;
             $idUser = $request->id;
@@ -104,7 +119,7 @@ class ProductoController extends Controller
         } elseif ($producto_amazon != null) {
             $producto_amazon->save();
         } else {
-            $producto_mediamarkt->save();  
+            $producto_mediamarkt->save();
         }
         $producto = Producto::where('barcode', $barcode)->select('id', 'barcode', 'nombre', 'url_img', 'descripcion', 'especificaciones_tecnicas')->first();
         $listaPrecios = $resultado['precios'];
@@ -118,7 +133,7 @@ class ProductoController extends Controller
                     $precio->save();
                     $precio = Precio::where('id_producto', $producto->id)->select('id', 'id_producto', 'precio', 'tienda', 'url_producto', 'created_at')->first();
                     array_push($precios, $precio);
-                } 
+                }
             }
         }
 
@@ -151,7 +166,7 @@ class ProductoController extends Controller
                 'status' => 'error',
             ];
         }
-        
+
     }
 
     public function obtenerProducto($producto_json, $barcode) {
