@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\UserController;
@@ -16,7 +15,9 @@ Route::post('historial', [HistorialController::class, 'getHistorial']);
 Route::post('producto/{id}/favorito', [HistorialController::class, 'cambiarFavorito']);
 
 Route::post('notificaciones', [NotificacionController::class, 'notificaciones']);
-
 Route::get('crearNotificaciones', [NotificacionController::class, 'crearNotificaciones']);
 Route::get('actualizarNotificaciones', [NotificacionController::class, 'actualizarNotificaciones']);
-Route::get('actualizarPrecios', [PrecioController::class, 'actualizarPrecios']);
+
+
+Route::get('obtenerPrecios', [PrecioController::class, 'obtenerUltimosPrecios']);
+Route::post('guardarPrecio', [PrecioController::class, 'guardarPrecio']);

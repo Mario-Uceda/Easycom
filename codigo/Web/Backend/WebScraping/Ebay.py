@@ -5,8 +5,6 @@ import UserAgents as ua
 url_ebay = "https://www.ebay.es/"
 
 # Este método se encarga de obtener los datos de un producto de ebay desde su código de barras
-
-
 def get_ebay(barcode):
     url_product = get_ebay_id(barcode)
     return get_ebay_data(url_product)

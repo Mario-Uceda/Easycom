@@ -11,6 +11,7 @@ def get_amazon(barcode):
         return get_amazon_data(url_product)
     else:
         return ("","")
+
 #Este método se encarga de obtener la url de un producto de Amazon desde su código de barras
 def get_amazon_id(barcode):
     barcode = barcode.replace(" ", "+")

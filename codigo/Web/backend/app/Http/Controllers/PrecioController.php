@@ -3,28 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Precio;
+use Illuminate\Http\Request;
 
 class PrecioController extends Controller
 {
-    function actualizarPrecios()
+    //Funcion para obtener el ultimo precio de todos los productos
+    function obtenerUltimosPrecios()
     {
-        $script_path = '../WebScraping/ActualizarPrecios.py';
         $precios = Precio::select('id_producto', 'url_producto', 'tienda')
-        ->latest('created_at')
-        ->groupBy('id_producto', 'url_producto', 'tienda')
-        ->get();
-        foreach ($precios as $precio_anterior) {
-            $url = $precio_anterior->url_producto;
-            $tienda = $precio_anterior->tienda;
-            $id = $precio_anterior->id_producto;
-            $command = 'python ' . $script_path . ' "' . $url . '" "' . $tienda . '" 2>&1';
-            $output = [];
-            exec($command, $output);
-            $precio = $output[0];
-            if (is_numeric($precio)) {
-                $precio_nuevo = new Precio($id, $precio, $tienda, $url);
-                $precio_nuevo->save();
-            }
+            ->latest('created_at')
+            ->groupBy('id_producto', 'url_producto', 'tienda')
+            ->get();
+        return $precios;
+    }
+
+    //Funcion para guardar un precio de un producto
+    function guardarPrecio(Request $request)
+    {
+        
+        $id_producto = $request->id_producto;
+        $precio = $request->precio;
+        $tienda = $request->tienda;
+        $url_producto = $request->url_producto;
+        if($id_producto != null && $precio != null && $tienda != null && $url_producto != null){
+            $precio_nuevo = new Precio($id_producto, $precio, $tienda, $url_producto);
+            $precio_nuevo->save();
+        }else{
+            return response()->json([
+                'message' => 'Error al guardar el precio'
+            ], 400);
         }
     }
 }

@@ -13,18 +13,18 @@ tiendas = {
     "Ebay": Ebay.get_ebay
 }
 
-def scrape_websites(barcode):
+def scrape_tiendas(barcode):
     results = {}
-    for website, scraper in tiendas.items():
+    for tienda, scraper in tiendas.items():
         for i in range(5):
-            data = scraper(barcode)
-            if data:
-                if isinstance(data, tuple):
-                    product, price = data
-                    results[website] = json.dumps({"product": product, "price": price})
+            datos = scraper(barcode)
+            if datos:
+                if isinstance(datos, tuple):
+                    producto, precio = datos
+                    results[tienda] = json.dumps({"product": producto, "price": precio})
                 else:
-                    results[website] = json.dumps({"price": data})
+                    results[tienda] = json.dumps({"price": datos})
                 break
     return json.dumps(results)
 
-print(scrape_websites(barcode))
+print(scrape_tiendas(barcode))

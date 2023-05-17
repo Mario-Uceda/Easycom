@@ -14,8 +14,6 @@ def get_mediamarkt(barcode):
         return ("", "")
 
 # Este método se encarga de obtener la url de un producto de Mediamarkt desde su código de barras
-
-
 def get_mediamarkt_id(barcode):
     barcode = barcode.replace(" ", "%20")
     url_search = url_mediamarkt + "es/search.html?query=" + barcode
