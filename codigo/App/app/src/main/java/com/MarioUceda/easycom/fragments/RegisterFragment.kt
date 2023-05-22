@@ -36,36 +36,61 @@ class RegisterFragment : Fragment() {
             val userregex = Regex("[A-Za-z0-9]+")
             val sqlinjection = Regex("^[a-zA-Z0-9\\s.,@'\\\"-]*$")
             if (email.isEmpty() || username.isEmpty() || password.isEmpty() || password2.isEmpty()) { // Comprobar que los campos no estén vacíos
-                Toast.makeText(context, getString(R.string.toast_error_campos), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.toast_error_campos), Toast.LENGTH_SHORT)
+                    .show()
             } else if (!userregex.matches(username)) { // Comprobar que el nombre de usuario sea correcto
-                Toast.makeText(context, getString(R.string.toast_error_username), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.toast_error_username),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else if (!emailregex.matches(email)) {// Comprobar que el email sea correcto
-                Toast.makeText(context, getString(R.string.toast_error_email), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.toast_error_email), Toast.LENGTH_SHORT)
+                    .show()
             } else if (password.length < 4) { // Comprobar que la contraseña tenga más de 4 caracteres
-                Toast.makeText(context, getString(R.string.toast_error_contraseña), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.toast_error_contraseña),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else if (password != password2) { // Comprobar que las contraseñas coincidan
-                Toast.makeText(context, getString(R.string.toast_error_contraseñas), Toast.LENGTH_SHORT).show()
-            } else if (!sqlinjection.matches(email) ||!sqlinjection.matches(username) || !sqlinjection.matches(password) || !sqlinjection.matches(password2)) { // Comprobar que no se haya introducido código SQL
-                Toast.makeText(context, getString(R.string.toast_error_sql), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.toast_error_contraseñas),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (!sqlinjection.matches(email) || !sqlinjection.matches(username) || !sqlinjection.matches(
+                    password
+                ) || !sqlinjection.matches(password2)
+            ) { // Comprobar que no se haya introducido código SQL
+                Toast.makeText(context, getString(R.string.toast_error_sql), Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                peticiones= Peticiones(context)
+                peticiones = Peticiones(context)
                 peticiones.registrar(username, email, password) { respuesta ->
                     if (respuesta.status == "ok") {
-                        Toast.makeText(context, getString(R.string.toast_exito_registro), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            getString(R.string.toast_exito_registro),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         (activity as MainActivity).cambiarScanFragment()
-                    }else{
-                        Toast.makeText(context, getString(R.string.toast_error_registro), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.toast_error_registro),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
-
-            binding.btnLogin.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.containerView, LoginFragment())
-                    commit()
-                }
+        }
+        binding.btnLogin.setOnClickListener {
+            println("Login")
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                replace(R.id.containerView, LoginFragment())
+                commit()
             }
-
         }
     }
 }

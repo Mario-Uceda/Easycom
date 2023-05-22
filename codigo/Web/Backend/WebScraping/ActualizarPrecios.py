@@ -30,8 +30,6 @@ for precio in lista:
             if precio:
                 break
 
-    print(precio)
-
     postUrl = "http://easycom.sytes.net/api/guardarPrecio"
     payload = {
         "id_producto": id_producto,
@@ -40,19 +38,3 @@ for precio in lista:
         "precio": precio
     }
     response = requests.request("POST", postUrl, data=payload)
-
-    print('\n')
-
-'''
-
-
-
-
-for i in range(5):
-    if tienda in tiendas:
-        precio = tiendas[tienda](url)
-        if precio:
-            break
-
-print(precio)
-'''

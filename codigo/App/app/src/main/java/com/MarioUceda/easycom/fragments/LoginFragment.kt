@@ -51,6 +51,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnRegistrar.setOnClickListener {
+            println("Registrar")
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 replace(R.id.containerView, RegisterFragment())
                 commit()
